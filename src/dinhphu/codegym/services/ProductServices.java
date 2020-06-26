@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProductServices implements IProductServices {
     private static final String selectAllProductStatement="select * from car";
-    private static final String insertProductStatement="insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,'/upload_file/default.jpg')";
+    private static final String insertProductStatement="insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String updateProduct="update users set full_name=?, address = ? where username=?";
 
     @Override
@@ -32,6 +32,7 @@ public class ProductServices implements IProductServices {
             preparedStatement.setString(11,product.getCar_type());
             preparedStatement.setString(12,product.getCar_name());
             preparedStatement.setInt(13,userId);
+            preparedStatement.setString(14,product.getImage_id());
 
             insertRow=preparedStatement.executeUpdate() > 0 ;
 

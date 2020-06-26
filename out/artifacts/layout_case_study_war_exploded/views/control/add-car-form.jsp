@@ -135,7 +135,7 @@
                                 <div class="card-body pad">
                                     <div class="mb-3">
                                         <textarea name="description" class="textarea" placeholder="Place some text here"
-                                                  style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                                  style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 30px;">
                                         </textarea>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                     </section>
 
                     <section class="clearfix">
-                        <button type="submit" class="btn btn-outline-danger float-left">Save Changes</button>
+                        <button type="submit" class="btn btn-outline-danger float-left">Add Car</button>
                     </section>
 
                     <p style="color:green;">${message}</p>
