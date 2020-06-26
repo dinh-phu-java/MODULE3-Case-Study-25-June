@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="ThemeStarz">
@@ -17,7 +19,7 @@
     <link rel="stylesheet" href="text_editor/summernote/summernote-bs4.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
+
 
 </head>
 <body>
