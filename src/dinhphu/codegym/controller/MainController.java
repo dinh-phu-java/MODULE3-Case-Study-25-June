@@ -31,7 +31,7 @@ public class MainController extends HttpServlet {
                 session.setAttribute("loginUser",loginUser);
                 break;
             case "edit-profile":
-                url="/my_profile.jsp";
+                url="/my-profile.jsp";
                 break;
         }
 

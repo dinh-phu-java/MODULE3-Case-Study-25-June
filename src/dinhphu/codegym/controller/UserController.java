@@ -102,7 +102,7 @@ public class UserController extends HttpServlet {
         boolean editBoolean=false;
         User editUser=null;
         ArrayList<String> message=new ArrayList<>();
-        String url="/views/home.jsp";
+        String url="/home.jsp";
         String action="";
 
         if (fullName.equals("") || address.equals("") || fullName ==null || address==null){
