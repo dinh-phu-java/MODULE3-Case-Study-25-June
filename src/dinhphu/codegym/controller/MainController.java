@@ -47,7 +47,7 @@ public class MainController extends HttpServlet {
         }
         switch (action){
             case "register-user":
-                url="/register_user.jsp";
+                url="/register-user.jsp";
                 break;
             case "login":
                 url="/login.jsp";
