@@ -25,11 +25,12 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <%--                    <a href=""><c:out value="${sessionScope.loginUser.userName}" /></a>--%>
-                    <%--                    <a href=""><c:out value="${sessionScope.loginUser.email}" /></a>--%>
-                    <%--                    <a href=""><c:out value="${sessionScope.loginUser.fullName}" /></a>--%>
-                    <a href='<c:url value="/user-control?action=user-profile"/>'><i class="fas fa-user"></i> ${sessionScope.loginUser.fullName}</a>
-                    <a href='<c:url value="/user-control?action=user-logout"/>' ><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <li>
+                        <a href='<c:url value="/user-control?action=user-profile"/>'><i class="fa fa-user"></i> ${sessionScope.loginUser.fullName}</a>
+                    </li>
+                    <li>
+                        <a href='<c:url value="/user-control?action=user-logout"/>' ><i class="fa fa-sign-out"></i> Logout</a>
+                    </li>
                 </c:otherwise>
             </c:choose>
 

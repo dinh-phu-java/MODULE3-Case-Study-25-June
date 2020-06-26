@@ -281,10 +281,10 @@ public class UserController extends HttpServlet {
             }
             switch (action){
                 case "user-profile":
-                    url="/views/my_profile.jsp";
+                    url="/my_profile.jsp";
                     break;
                 case "user-logout":
-                    url="/views/home.jsp";
+                    url="/home.jsp";
                     HttpSession session=request.getSession();
                     session.removeAttribute("username");
                     session.removeAttribute("loginUser");
