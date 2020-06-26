@@ -84,7 +84,7 @@ public class UserController extends HttpServlet {
         }
 
         request.setAttribute("message",message);
-        String url="/views/change_password.jsp";
+        String url="/change_password.jsp";
         try {
             getServletContext().getRequestDispatcher(url).forward(request,response);
         } catch (ServletException e) {
@@ -274,7 +274,7 @@ public class UserController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String action= request.getParameter("action");
-            String url="/views/home.jsp";
+            String url="/home.jsp";
             System.out.println(action);
             if (action==null){
                 action="views";
@@ -290,13 +290,13 @@ public class UserController extends HttpServlet {
                     session.removeAttribute("loginUser");
                     break;
                 case "change-password":
-                    url="/views/change_password.jsp";
+                    url="/change_password.jsp";
                     break;
                 case "my-car-list":
-                    url="/views/car_list.jsp";
+                    url="/car_list.jsp";
                     break;
                 case "add-car":
-                    url="/views/add_car.jsp";
+                    url="/add_car.jsp";
                     break;
             }
 
