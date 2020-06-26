@@ -78,8 +78,8 @@
                                         <a href="single-listing-1.html" class="title">${product.car_name}</a>
                                         <span class="tag">Offer</span>
                                     </h3>
-                                    <a href="<c:url value="${product.image_id}"/>" class="image-wrapper background-image">
-                                        <img src="assets/img/image-01.jpg" alt="">
+                                    <a href="#" class="image-wrapper background-image">
+                                        <img src="<c:url value='${product.image_id}'/>" alt="">
                                     </a>
                                 </div>
                                 <!--end image-->

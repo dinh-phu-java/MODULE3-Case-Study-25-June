@@ -294,7 +294,7 @@ public class UserController extends HttpServlet {
                     url="/change_password.jsp";
                     break;
                 case "my-car-list":
-                    System.out.println("access my car list");
+
                     url="/my-car-list.jsp";
 //                    showUserCarList(request,response);
 
