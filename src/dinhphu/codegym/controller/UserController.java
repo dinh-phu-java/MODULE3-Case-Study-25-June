@@ -149,7 +149,7 @@ public class UserController extends HttpServlet {
 
         String hashPassword= PasswordUtil.hashPassword(password);
         ArrayList<String> message= new ArrayList<>();
-        String url="/views/login.jsp";
+        String url="/login.jsp";
         if ((userCheck || emailCheck) && passwordCheck){
             ArrayList<User> userList=new ArrayList<>(userServices.selectAllUser());
             boolean userMatch=false;
@@ -167,11 +167,11 @@ public class UserController extends HttpServlet {
                 session.setAttribute("username",userName);
             }else{
                 message.add("User name or password is not correct");
-                url="/views/login.jsp";
+                url="/login.jsp";
             }
         }else{
             message.add("User name or password format is not correct");
-            url="/views/login.jsp";
+            url="/login.jsp";
         }
 
         request.setAttribute("message",message);
