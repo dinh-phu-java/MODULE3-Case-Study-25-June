@@ -17,7 +17,7 @@
     <c:import url="views/control/sidebar.jsp"/>
 
     <!-- Content Wrapper. Contains page content -->
-    <c:import url="views/control/content.jsp"/>
+    <c:import url="views/control/my-profile-form.jsp"/>
     <!-- /.content-wrapper -->
 
 
