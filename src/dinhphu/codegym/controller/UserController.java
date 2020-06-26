@@ -281,7 +281,7 @@ public class UserController extends HttpServlet {
             }
             switch (action){
                 case "user-profile":
-                    url="/my_profile.jsp";
+                    url="/my-profile.jsp";
                     break;
                 case "user-logout":
                     url="/home.jsp";

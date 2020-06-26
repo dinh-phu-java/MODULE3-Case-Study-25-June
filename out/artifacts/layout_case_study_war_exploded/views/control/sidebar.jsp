@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <!-- Sidebar -->
@@ -18,14 +19,58 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="<c:url value="/home"/>" class="nav-link">
+                        <i class="fa fa-home"></i>
                         <p>
-                            Dashboard
-                            <i class="right fas"></i>
+
+                            Home
                         </p>
                     </a>
+                </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="<c:url value="/user-control?action=user-profile"/>" class="nav-link">
+                        <i class="fa fa-user"></i>
+                        <p>
+                            My Profile
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="<c:url value="/user-control?action=my-car-list"/>" class="nav-link">
+                        <i class="fa fa-list"></i>
+                        <p>
+                            My Car List
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="<c:url value="/user-control?action=change-password"/>" class="nav-link">
+                        <i class="fa fa-user-edit"></i>
+                        <p>
+                            Change Password
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="<c:url value="/user-control?action=add-car"/>" class="nav-link">
+                        <i class="fa fa-adjust"></i>
+                        <p>
+                            Add Car
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="<c:url value="/user-control?action=user-logout"/>" class="nav-link">
+                        <i class="fa fa-anchor"></i>
+                        <p>
+                            Log Out
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>

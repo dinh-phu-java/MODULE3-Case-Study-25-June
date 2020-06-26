@@ -3,7 +3,7 @@
     <div class="container">
         <ul class="left">
             <li>
-             <a><span><i class="fa fa-facebook"></i></span></a>
+             <span><i class="fa fa-facebook"></i></span>
             </li>
             <li><span><i class="fa fa-twitter"></i></span></li>
             <li><span><i class="fa fa-instagram"></i></span></li>
