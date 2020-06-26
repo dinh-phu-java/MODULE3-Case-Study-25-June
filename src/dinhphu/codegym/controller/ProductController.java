@@ -141,7 +141,7 @@ public class ProductController extends HttpServlet {
 
             String subFileName = imgPath.substring(imgPath.lastIndexOf('/') + 1, imgPath.length());
             System.out.println("sub file name is: " + subFileName);
-            correctFile = "/"+userName+"/" + subFileName;
+            correctFile = "/upload_file/"+userName+"/" + subFileName;
             System.out.println("correct file Name:" + correctFile);
 
             // Upload thành công.
@@ -197,4 +197,6 @@ public class ProductController extends HttpServlet {
         }
         return null;
     }
+
 }
+

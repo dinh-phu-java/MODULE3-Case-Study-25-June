@@ -1,9 +1,8 @@
 package dinhphu.codegym.controller;
 
+import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
-import dinhphu.codegym.services.IUserServices;
-import dinhphu.codegym.services.PasswordUtil;
-import dinhphu.codegym.services.UserServices;
+import dinhphu.codegym.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,7 @@ import java.util.regex.Pattern;
 @WebServlet(name = "UserController",urlPatterns = {"/user-action","/user-control"})
 public class UserController extends HttpServlet {
     private static IUserServices userServices=new UserServices();
+    private static IProductServices productServices=new ProductServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
         String url="/views/home.jsp";
@@ -279,13 +279,14 @@ public class UserController extends HttpServlet {
             if (action==null){
                 action="views";
             }
+        HttpSession session=request.getSession();
             switch (action){
                 case "user-profile":
                     url="/my-profile.jsp";
                     break;
                 case "user-logout":
                     url="/home.jsp";
-                    HttpSession session=request.getSession();
+
                     session.removeAttribute("username");
                     session.removeAttribute("loginUser");
                     break;
@@ -293,15 +294,32 @@ public class UserController extends HttpServlet {
                     url="/change_password.jsp";
                     break;
                 case "my-car-list":
-                    url="/car_list.jsp";
+                    System.out.println("access my car list");
+                    url="/my-car-list.jsp";
+//                    showUserCarList(request,response);
+
+                    User loginUser=(User)session.getAttribute("loginUser");
+                    ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+                    productList.forEach(k->{
+                        System.out.println("my car "+k.getCar_name());
+                    });
+                    session.setAttribute("productList",productList);
+
                     break;
                 case "add-car":
                     url="/add_car.jsp";
                     break;
             }
-
+        System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void showUserCarList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        User loginUser=(User)session.getAttribute("loginUser");
+        ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+        session.setAttribute("productList",productList);
     }
 
 

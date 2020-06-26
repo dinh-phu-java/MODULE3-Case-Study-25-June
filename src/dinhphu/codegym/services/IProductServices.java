@@ -10,5 +10,5 @@ public interface IProductServices {
     public Product selectProduct(String token);
     public int rowCount();
     public List<Product> selectAllProduct();
-
+    public List<Product> selectProductByUserId(int userId);
 }
