@@ -53,7 +53,7 @@ public class MainController extends HttpServlet {
                 url="/login.jsp";
                 break;
             default:
-                url="/editors.jsp";
+                url="/home.jsp";
                 break;
         }
         getServletContext().getRequestDispatcher(url).forward(request,response);

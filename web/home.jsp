@@ -1,25 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
+
+    <c:import url="views/user/head.jsp"/>
     <title>Craigs - Easy Buy & Sell Listing HTML Template</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="ThemeStarz">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/user.css">
-
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="text_editor/css/adminlte.min.css">
-    <link rel="stylesheet" href="text_editor/summernote/summernote-bs4.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-
 
 </head>
 <body>
@@ -67,7 +53,7 @@
                 <div class="container">
                     <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
                         <a class="navbar-brand" href="index.html">
-                            <img src="assets/img/logo-inverted.png" alt="">
+                            <img src="assets/img/logo2.png" alt="">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -1188,9 +1174,6 @@
     </section>
     <!--end content-->
 
-
-
-
     <!--*********************************************************************************************************-->
     <!--************ FOOTER *************************************************************************************-->
     <!--*********************************************************************************************************-->
@@ -1286,28 +1269,7 @@
 </div>
 <!--end page-->
 
-<script src="assets/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="assets/js/popper.min.js"></script>
-<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58&libraries=places"></script>
-<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>-->
-<script src="assets/js/selectize.min.js"></script>
-<script src="assets/js/masonry.pkgd.min.js"></script>
-<script src="assets/js/icheck.min.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/custom.js"></script>
-<script src="text_editor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="text_editor/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="text_editor/dist/js/demo.js"></script>
-<!-- Summernote -->
-<script src="text_editor/summernote/summernote-bs4.min.js"></script>
-<script>
-    $(function () {
-        // Summernote
-        $('.textarea').summernote()
-    })
-</script>
+<c:import url="views/user/foot.jsp"/>
+
 </body>
 </html>
