@@ -3,10 +3,11 @@
     <div class="container">
         <ul class="left">
             <li>
-                            <span>
-                                <i class="fa fa-phone"></i> +1 123 456 789
-                            </span>
+             <a><span><i class="fa fa-facebook"></i></span></a>
             </li>
+            <li><span><i class="fa fa-twitter"></i></span></li>
+            <li><span><i class="fa fa-instagram"></i></span></li>
+            <li><span><i class="fa fa-youtube"></i></span></li>
         </ul>
         <!--end left-->
         <ul class="right">
