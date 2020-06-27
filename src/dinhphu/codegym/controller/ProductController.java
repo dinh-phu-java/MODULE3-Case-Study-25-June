@@ -66,7 +66,7 @@ public class ProductController extends HttpServlet {
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
 
-        String numberRegex = "^\\d[\\d]{1,20}[\\.]?[\\d]{1,20}";
+        String numberRegex = "^\\d[\\d]{1,10}[\\.]?[\\d]{1,5}";
         boolean checkNumberBoolean = Pattern.matches(numberRegex, request.getParameter("price"));
         if (checkNumberBoolean) {
 

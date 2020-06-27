@@ -294,15 +294,10 @@ public class UserController extends HttpServlet {
                     url="/change_password.jsp";
                     break;
                 case "my-car-list":
-
                     url="/my-car-list.jsp";
 //                    showUserCarList(request,response);
-
                     User loginUser=(User)session.getAttribute("loginUser");
                     ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
-                    productList.forEach(k->{
-                        System.out.println("my car "+k.getCar_name());
-                    });
                     session.setAttribute("productList",productList);
 
                     break;

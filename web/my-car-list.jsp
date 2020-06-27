@@ -99,7 +99,7 @@
                                 </div>
                                 <!--end meta-->
                                 <div class="description">
-                                    <p>${product.gear}</p>
+                                    <p>${product.gear}-${product.engine_type}-${product.fuel_type}-${product.valves}</p>
                                 </div>
                                 <!--end description-->
                                 <a href="/product-controller?action=car-detail" class="detail text-caps underline">Detail</a>

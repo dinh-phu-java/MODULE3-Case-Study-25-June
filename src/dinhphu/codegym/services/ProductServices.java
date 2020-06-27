@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,15 @@ public class ProductServices implements IProductServices {
             sqlStatement.setInt(1, userId);
             ResultSet rs = sqlStatement.executeQuery();
             while (rs.next()) {
-             Product getProduct=new Product(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getDouble(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15));
+
+                double number =rs.getDouble(9);
+                double carPrice =Double.parseDouble(new DecimalFormat("##.##").format(number));
+
+                String gear=rs.getString(5).toUpperCase();
+                String front_wheel=rs.getString(6).toUpperCase();
+                String fuel_type=rs.getString(7).toUpperCase();
+
+             Product getProduct=new Product(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),gear,front_wheel,fuel_type,rs.getString(8),carPrice,rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15));
              products.add(getProduct);
 
             }
