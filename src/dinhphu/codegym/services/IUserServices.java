@@ -8,6 +8,7 @@ public interface IUserServices {
     public boolean insertUser(User user);
     public boolean editUser(User user);
     public User selectUser(String token);
+    public User selectUserByCarId(int carId);
     public int rowCount();
     public List<User> selectAllUser();
     public boolean updatePassword(User user , String newPassword);

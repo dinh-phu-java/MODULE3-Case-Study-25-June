@@ -70,7 +70,7 @@
                                     </div>
                                     <!--end author-image-->
                                     <div class="author-description">
-                                        <h3>${loginUser.fullName}</h3>
+                                        <h3>${ownerUser.fullName}</h3>
                                         <div class="rating" data-rating="4"></div>
                                         <a href="seller-detail-1.html" class="text-uppercase">Show My Car Listings
                                             <span class="appendix">(12)</span>
@@ -81,9 +81,9 @@
                                 <hr>
                                 <dl>
                                     <dt>Email</dt>
-                                    <dd>${loginUser.email}</dd>
+                                    <dd>${ownerUser.email}</dd>
                                     <dt>Address</dt>
-                                    <dd>${loginUser.address}</dd>
+                                    <dd>${ownerUser.address}</dd>
                                 </dl>
                                 <!--end author-->
                             </div>

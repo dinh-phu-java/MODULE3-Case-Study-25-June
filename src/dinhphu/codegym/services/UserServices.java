@@ -82,6 +82,31 @@ public class UserServices implements IUserServices {
         return user;
     }
     @Override
+    public User selectUserByCarId(int carId){
+        Connection connection= DatabaseConnection.getConnection();
+        User user=null;
+        String sqlStatement= "select * from users where user_id=?";
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(sqlStatement);
+            preparedStatement.setInt(1,carId);
+            ResultSet rs= preparedStatement.executeQuery();
+            while (rs.next()){
+                int userId= rs.getInt("user_id");
+                String userName=rs.getString("username");
+                String email=rs.getString("email");
+                String password=rs.getString("password");
+                String address=rs.getString("address");
+                String fullName=rs.getString("full_name");
+                int permissionId=rs.getInt("permission_id");
+                user=new User(userId,fullName,userName,email,password,address);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public int rowCount(){
         int rowCount=-1;
         Connection connection= DatabaseConnection.getConnection();

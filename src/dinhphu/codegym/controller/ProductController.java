@@ -3,7 +3,9 @@ package dinhphu.codegym.controller;
 import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
 import dinhphu.codegym.services.DatabaseConnection;
+import dinhphu.codegym.services.IUserServices;
 import dinhphu.codegym.services.ProductServices;
+import dinhphu.codegym.services.UserServices;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -25,6 +27,8 @@ import java.util.regex.Pattern;
 public class ProductController extends HttpServlet {
 
     private ProductServices productServices = new ProductServices();
+    private IUserServices userServices = new UserServices();
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -224,7 +228,10 @@ public class ProductController extends HttpServlet {
     private void getDetailCar(HttpServletRequest request, HttpServletResponse response,int detailCarId) {
         HttpSession session=request.getSession();
         Product detailProduct=productServices.selectProductByCarId(detailCarId);
+        User ownerUser=userServices.selectUserByCarId(detailProduct.getUser_id());
         session.setAttribute("detailProduct",detailProduct);
+        session.setAttribute("ownerUser",ownerUser);
+
     }
 }
 
