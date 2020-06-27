@@ -297,9 +297,16 @@ public class UserController extends HttpServlet {
                     url="/my-car-list.jsp";
 //                    showUserCarList(request,response);
                     int page=Integer.parseInt(request.getParameter("page"));
+                    final int numberProductPerPage=4;
                     User loginUser=(User)session.getAttribute("loginUser");
-                    ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
-                    double listSize= (Math.ceil(productList.size()/4))+1;
+                    ArrayList<Product> allList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+                    ArrayList<Product> productList=new ArrayList<>();
+                    double listSize= (Math.ceil(allList.size()/numberProductPerPage))+1;
+
+                    int startElement= (page-1)*numberProductPerPage;
+                    for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
+                        productList.add(allList.get(i));
+                    }
 
                     session.setAttribute("page",page);
                     session.setAttribute("listSize",listSize);
