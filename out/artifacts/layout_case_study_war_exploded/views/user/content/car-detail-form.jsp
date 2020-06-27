@@ -50,7 +50,12 @@
                                 <dt>Car Price</dt>
                                 <dd>$${detailProduct.car_price}</dd>
                             </dl>
-                            <a href="" class="btn btn-danger">Add to Cart</a>
+                            <c:if test = "${loginUser.id==ownerUser.id}">
+                                <a href="#" class="btn btn-danger ">This is your Car</a>
+                            </c:if>
+                            <c:if test = "${loginUser.id!=ownerUser.id}">
+                                <a href="" class="btn btn-danger ">Add to Cart</a>
+                            </c:if>
                         </div>
 
                     </div>
