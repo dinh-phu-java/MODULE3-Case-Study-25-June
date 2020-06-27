@@ -300,10 +300,21 @@ public class UserController extends HttpServlet {
                 case "add-car":
                     url="/add_car.jsp";
                     break;
+                case "edit-car":
+                    url="/edit-car.jsp";
+                    showUserEditCar(request,response);
+                    break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void showUserEditCar(HttpServletRequest request, HttpServletResponse response) {
+        int editCarId=Integer.parseInt(request.getParameter("car-id"));
+        Product editCar=productServices.selectProductByCarId(editCarId);
+        request.setAttribute("editCar",editCar);
+        System.out.println(editCar.getCar_name());
     }
 
     private void showUserCarList(HttpServletRequest request, HttpServletResponse response) {

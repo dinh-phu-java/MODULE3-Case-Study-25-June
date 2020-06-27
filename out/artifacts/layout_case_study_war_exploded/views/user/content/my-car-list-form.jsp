@@ -36,11 +36,11 @@
                         <div class="wrapper">
                             <div class="image">
                                 <h3>
-                                    <a href="#" class="tag category">${product.car_type}</a>
-                                    <a href="single-listing-1.html" class="title">${product.car_name}</a>
+                                    <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="tag category">${product.car_type}</a>
+                                    <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="title">${product.car_name}</a>
                                     <span class="tag">Offer</span>
                                 </h3>
-                                <a href="#" class="image-wrapper background-image">
+                                <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="image-wrapper background-image">
                                     <img src="<c:url value='${product.image_id}'/>" alt="">
                                 </a>
                             </div>
@@ -65,6 +65,8 @@
                             </div>
                             <!--end description-->
                             <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="detail text-caps underline">Detail</a>
+
+
                         </div>
                     </div>
                 </c:forEach>
