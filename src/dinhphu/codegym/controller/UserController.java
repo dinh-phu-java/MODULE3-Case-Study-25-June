@@ -295,23 +295,7 @@ public class UserController extends HttpServlet {
                     break;
                 case "my-car-list":
                     url="/my-car-list.jsp";
-//                    showUserCarList(request,response);
-                    int page=Integer.parseInt(request.getParameter("page"));
-                    final int numberProductPerPage=4;
-                    User loginUser=(User)session.getAttribute("loginUser");
-                    ArrayList<Product> allList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
-                    ArrayList<Product> productList=new ArrayList<>();
-                    double listSize= (Math.ceil(allList.size()/numberProductPerPage))+1;
-
-                    int startElement= (page-1)*numberProductPerPage;
-                    for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
-                        productList.add(allList.get(i));
-                    }
-
-                    session.setAttribute("page",page);
-                    session.setAttribute("listSize",listSize);
-                    session.setAttribute("productList",productList);
-
+                    showUserCarList(request,response);
                     break;
                 case "add-car":
                     url="/add_car.jsp";
@@ -324,8 +308,20 @@ public class UserController extends HttpServlet {
 
     private void showUserCarList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session=request.getSession();
+        int page=Integer.parseInt(request.getParameter("page"));
+        final int numberProductPerPage=4;
         User loginUser=(User)session.getAttribute("loginUser");
-        ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+        ArrayList<Product> allList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+        ArrayList<Product> productList=new ArrayList<>();
+        double listSize= (Math.ceil(allList.size()/numberProductPerPage))+1;
+
+        int startElement= (page-1)*numberProductPerPage;
+        for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
+            productList.add(allList.get(i));
+        }
+
+        session.setAttribute("page",page);
+        session.setAttribute("listSize",listSize);
         session.setAttribute("productList",productList);
     }
 
