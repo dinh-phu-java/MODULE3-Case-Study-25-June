@@ -296,8 +296,13 @@ public class UserController extends HttpServlet {
                 case "my-car-list":
                     url="/my-car-list.jsp";
 //                    showUserCarList(request,response);
+                    int page=Integer.parseInt(request.getParameter("page"));
                     User loginUser=(User)session.getAttribute("loginUser");
                     ArrayList<Product> productList=new ArrayList<>(productServices.selectProductByUserId(loginUser.getId()));
+                    double listSize= (Math.ceil(productList.size()/4))+1;
+
+                    session.setAttribute("page",page);
+                    session.setAttribute("listSize",listSize);
                     session.setAttribute("productList",productList);
 
                     break;

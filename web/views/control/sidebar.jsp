@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="<c:url value="/user-control?action=my-car-list"/>" class="nav-link">
+                    <a href="<c:url value="/user-control?action=my-car-list&page=1"/>" class="nav-link">
                         <i class="fa fa-list"></i>
                         <p>
                             My Car List

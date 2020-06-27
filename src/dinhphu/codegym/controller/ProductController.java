@@ -15,7 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 @WebServlet(name = "ProductController",urlPatterns="/product-controller")
@@ -72,8 +74,11 @@ public class ProductController extends HttpServlet {
 
             double price = Double.parseDouble(request.getParameter("price"));
 
+            Date postDate= new Date();
 
-            Product car = new Product(0, loginUser.getId(), imagePath, engine_type, gear, front_wheel, fuel_type, valves, price, description, date_of_manufacture, date_of_manufacture, vendor, car_type, car_name);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = formatter.format(postDate);
+            Product car = new Product(0, loginUser.getId(), imagePath, engine_type, gear, front_wheel, fuel_type, valves, price, description, strDate, date_of_manufacture, vendor, car_type, car_name);
 
             if (productServices.insertProduct(car, loginUser.getId())) {
                 messages.add("Add Car Completed!");
