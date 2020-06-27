@@ -222,7 +222,9 @@ public class ProductController extends HttpServlet {
     }
 
     private void getDetailCar(HttpServletRequest request, HttpServletResponse response,int detailCarId) {
-
+        HttpSession session=request.getSession();
+        Product detailProduct=productServices.selectProductByCarId(detailCarId);
+        session.setAttribute("detailProduct",detailProduct);
     }
 }
 

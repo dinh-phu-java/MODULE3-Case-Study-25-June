@@ -6,5 +6,6 @@
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="assets/fonts/font-awesome.css" type="text/css">
 <link rel="stylesheet" href="assets/css/selectize.css" type="text/css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/user.css">
