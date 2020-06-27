@@ -44,14 +44,19 @@ public class ProductController extends HttpServlet {
         }
         switch (action) {
             case "add-car":
-                System.out.println("access switch add car");
+
                 String imagePath= uploadImage(request,response,loginUser.getUserName());
-                System.out.println("do post image path: "+imagePath);
+
                 addCar(request,response,imagePath);
+                break;
+            case "edit-car":
+                String editImagePath= uploadImage(request,response,loginUser.getUserName());
+                editCar(request,response,editImagePath);
                 break;
         }
 
     }
+
 
     private void addCar(HttpServletRequest request, HttpServletResponse response,String imagePath) {
         System.out.println("hello add car");
@@ -104,7 +109,56 @@ public class ProductController extends HttpServlet {
 
     }
 
+    private void editCar(HttpServletRequest request, HttpServletResponse response,String imagePath) {
+        System.out.println("hello edit car");
+        int editCarId=Integer.parseInt(request.getParameter("editCarId")) ;
+        String engine_type = request.getParameter("engine_type");
+        String gear = request.getParameter("gear");
+        String front_wheel = request.getParameter("front-wheel");
+        String fuel_type = request.getParameter("fuel-type");
+        String valves = request.getParameter("valves");
 
+        String description = request.getParameter("description");
+        String date_of_manufacture = request.getParameter("date_of_manufacture");
+        String vendor = request.getParameter("vendor");
+        String car_type = request.getParameter("car_type");
+        String car_name = request.getParameter("car_name");
+
+        String url = "/edit-car.jsp";
+        ArrayList<String> messages = new ArrayList<>();
+        HttpSession session = request.getSession();
+        User loginUser = (User) session.getAttribute("loginUser");
+
+        String numberRegex = "^\\d[\\d]{1,10}[\\.]?[\\d]{1,5}";
+        boolean checkNumberBoolean = Pattern.matches(numberRegex, request.getParameter("price"));
+        if (checkNumberBoolean) {
+
+            double price = Double.parseDouble(request.getParameter("price"));
+
+            Date postDate= new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = formatter.format(postDate);
+            Product car = new Product(0, loginUser.getId(), imagePath, engine_type, gear, front_wheel, fuel_type, valves, price, description, strDate, date_of_manufacture, vendor, car_type, car_name);
+
+            if (productServices.editProduct(car, editCarId)) {
+                messages.add("Edit Car Completed!");
+            } else {
+                messages.add("Can't edit car");
+            }
+        } else {
+            messages.add("Price should be a number!");
+        }
+
+        request.setAttribute("messages", messages);
+        try {
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private String uploadImage(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException {
         String correctFile = "";

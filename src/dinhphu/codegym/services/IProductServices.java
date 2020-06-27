@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProductServices {
     public boolean insertProduct(Product product,int userId);
-    public boolean editProduct(Product product);
+    public boolean editProduct(Product product,int carId);
     public Product selectProduct(String token);
     public int rowCount();
     public List<Product> selectAllProduct();

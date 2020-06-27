@@ -12,7 +12,7 @@
             <div class="row">
 
                 <div class="col-md-8">
-                    <h2>Add Car</h2>
+                    <h2>Edit Car</h2>
                     <section>
                         <div class="row">
                             <div class="col-md-12">

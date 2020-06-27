@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductServices implements IProductServices {
     private static final String selectAllProductStatement = "select * from car";
     private static final String insertProductStatement = "insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String updateProduct = "update users set full_name=?, address = ? where username=?";
+    private static final String updateProduct = "update car set image_id=?, engine_type = ?,gear=? , front_wheel=?, fuel_type=?,valves=?, car_price=?, description=?, vendor=?, car_type=?, car_name=? where car_id=?";
     private static final String selectProductByUserId = "select * from car where user_id=?";
 
     @Override
@@ -48,8 +48,29 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public boolean editProduct(Product product) {
-        return false;
+    public boolean editProduct(Product product,int carId) {
+        Connection connection = DatabaseConnection.getConnection();
+        boolean updateRow = false;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateProduct);
+            preparedStatement.setString(1, product.getImage_id());
+            preparedStatement.setString(2, product.getEngine_type());
+            preparedStatement.setString(3, product.getGear());
+            preparedStatement.setString(4, product.getFront_wheel());
+            preparedStatement.setString(5, product.getFuel_type());
+            preparedStatement.setString(6, product.getValves());
+            preparedStatement.setDouble(7, product.getCar_price());
+            preparedStatement.setString(8, product.getDescription());
+            preparedStatement.setString(9, product.getVendor());
+            preparedStatement.setString(10, product.getCar_type());
+            preparedStatement.setString(11, product.getCar_name());
+            preparedStatement.setInt(12, carId);
+
+            updateRow = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return updateRow;
     }
 
     @Override
