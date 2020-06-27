@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <section class="block">
     <div class="container">
         <div class="row">
@@ -5,11 +7,10 @@
             <div class="col-md-9">
                 <!--Gallery Carousel-->
                 <section>
-                    <h2>Gallery</h2>
+                    <h2>${detailProduct.car_name}</h2>
                     <!--end section-title-->
                     <div class="gallery-carousel owl-carousel">
-                        <img src="assets/img/image-20.jpg" alt="" data-hash="1">
-
+                        <img src="<c:url value="${detailProduct.image_id}"/>" alt="" data-hash="1">
                     </div>
 
                 </section>
@@ -19,11 +20,7 @@
                 <section>
                     <h2>Description</h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit
-                        amet fermentum sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-                        per inceptos himenaeos. Vestibulum tincidunt, sapien sagittis sollicitudin dapibus,
-                        risus mi euismod elit, in dictum justo lacus sit amet dui. Sed faucibus vitae nisl
-                        at dignissim.
+                        ${detailProduct.description}
                     </p>
                 </section>
 
@@ -32,24 +29,26 @@
                         <div class="col-md-5">
                             <h2>Details</h2>
                             <dl>
-                                <dt>Date Added</dt>
-                                <dd>05.04.2017</dd>
-                                <dt>Type</dt>
-                                <dd>Offer</dd>
-                                <dt>Status</dt>
-                                <dd>Used</dd>
-                                <dt>First Owner</dt>
-                                <dd>Yes</dd>
-                                <dt>Material</dt>
-                                <dd>Wood, Leather</dd>
-                                <dt>Color</dt>
-                                <dd>White, Grey</dd>
-                                <dt>Height</dt>
-                                <dd>47cm</dd>
-                                <dt>Width</dt>
-                                <dd>203cm</dd>
-                                <dt>Length</dt>
-                                <dd>54cm</dd>
+                                <dt>Car Name</dt>
+                                <dd>${detailProduct.car_name}</dd>
+                                <dt>Engine Type</dt>
+                                <dd>${detailProduct.engine_type}</dd>
+                                <dt>Gear</dt>
+                                <dd>${detailProduct.gear}</dd>
+                                <dt>Front Wheel</dt>
+                                <dd>${detailProduct.front_wheel}</dd>
+                                <dt>Fuel Type</dt>
+                                <dd>${detailProduct.fuel_type}</dd>
+                                <dt>Valves</dt>
+                                <dd>${detailProduct.valves}</dd>
+                                <dt>Date Of Manufacture</dt>
+                                <dd>${detailProduct.date_of_manufacture}</dd>
+                                <dt>Vendor</dt>
+                                <dd>${detailProduct.vendor}</dd>
+                                <dt>Car Type</dt>
+                                <dd>${detailProduct.car_type}</dd>
+                                <dt>Car Price</dt>
+                                <dd>$${detailProduct.car_price}</dd>
                             </dl>
                             <a href="" class="btn btn-danger">Add to Cart</a>
                         </div>
@@ -57,17 +56,9 @@
                     </div>
                 </section>
 
-
-                <!--end Description-->
-                <!--Details & Location-->
-
-                <!--end Details and Locations-->
-                <!--Features-->
-
-                <!--end Features-->
                 <!--Author-->
                 <section>
-                    <h2>Author</h2>
+                    <h2>Car Owner</h2>
                     <div class="box">
                         <div class="row">
                             <div class="col-md-5">
@@ -79,9 +70,9 @@
                                     </div>
                                     <!--end author-image-->
                                     <div class="author-description">
-                                        <h3>Jane Doe</h3>
+                                        <h3>${loginUser.fullName}</h3>
                                         <div class="rating" data-rating="4"></div>
-                                        <a href="seller-detail-1.html" class="text-uppercase">Show My Listings
+                                        <a href="seller-detail-1.html" class="text-uppercase">Show My Car Listings
                                             <span class="appendix">(12)</span>
                                         </a>
                                     </div>
@@ -89,10 +80,10 @@
                                 </div>
                                 <hr>
                                 <dl>
-                                    <dt>Phone</dt>
-                                    <dd>830-247-0930</dd>
                                     <dt>Email</dt>
-                                    <dd>hijane@example.com</dd>
+                                    <dd>${loginUser.email}</dd>
+                                    <dt>Address</dt>
+                                    <dd>${loginUser.address}</dd>
                                 </dl>
                                 <!--end author-->
                             </div>
