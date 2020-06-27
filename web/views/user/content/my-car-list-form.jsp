@@ -64,7 +64,7 @@
                                 <p>${product.gear}-${product.engine_type}-${product.fuel_type}-${product.valves}</p>
                             </div>
                             <!--end description-->
-                            <a href="/product-controller?action=car-detail" class="detail text-caps underline">Detail</a>
+                            <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="detail text-caps underline">Detail</a>
                         </div>
                     </div>
                 </c:forEach>

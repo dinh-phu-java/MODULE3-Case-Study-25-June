@@ -95,4 +95,31 @@ public class ProductServices implements IProductServices {
         return products;
     }
 
+    @Override
+    public Product selectProductByCarId(int carId){
+        Connection connection=DatabaseConnection.getConnection();
+        String sqlStatement="select * from car where car_id=?";
+        Product product=null;
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(sqlStatement);
+            preparedStatement.setInt(1,carId);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                double number =rs.getDouble(9);
+                double carPrice =Double.parseDouble(new DecimalFormat("##.##").format(number));
+
+                String gear=rs.getString(5).toUpperCase();
+                String front_wheel=rs.getString(6).toUpperCase();
+                String fuel_type=rs.getString(7).toUpperCase();
+
+                product=new Product(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),gear,front_wheel,fuel_type,rs.getString(8),carPrice,rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15));
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return product;
+    }
+
 }

@@ -11,4 +11,5 @@ public interface IProductServices {
     public int rowCount();
     public List<Product> selectAllProduct();
     public List<Product> selectProductByUserId(int userId);
+    public Product selectProductByCarId(int carId);
 }

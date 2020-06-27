@@ -100,9 +100,7 @@ public class ProductController extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
 
     private String uploadImage(HttpServletRequest request, HttpServletResponse response, String userName) throws ServletException {
         String correctFile = "";
@@ -203,5 +201,28 @@ public class ProductController extends HttpServlet {
         return null;
     }
 
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action=request.getParameter("action");
+        int detailCarId=Integer.parseInt(request.getParameter("car-id"));
+        HttpSession session =request.getSession();
+        session.setAttribute("detailCarId",detailCarId);
+        String url="/home";
+        if (action ==null){
+            action="views";
+        }
+        switch(action){
+            case "car-detail":
+                url="/car-detail.jsp";
+                getDetailCar(request,response,detailCarId);
+                break;
+        }
+
+        getServletContext().getRequestDispatcher(url).forward(request,response);
+    }
+
+    private void getDetailCar(HttpServletRequest request, HttpServletResponse response,int detailCarId) {
+
+    }
 }
 
