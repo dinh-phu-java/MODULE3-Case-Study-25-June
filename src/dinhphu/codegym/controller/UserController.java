@@ -1,5 +1,6 @@
 package dinhphu.codegym.controller;
 
+import dinhphu.codegym.model.Cart;
 import dinhphu.codegym.model.Post;
 import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 @WebServlet(name = "UserController",urlPatterns = {"/user-action","/user-control"})
 public class UserController extends HttpServlet {
     private static IUserServices userServices=new UserServices();
     private static IProductServices productServices=new ProductServices();
+    public static  ICart cartServices=new CartServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
         String url="/home.jsp";
@@ -309,8 +312,8 @@ public class UserController extends HttpServlet {
                     showUserEditCar(request,response);
                     break;
                 case "add-to-cart":
-                    url="/my-cart.jsp";
-                    showCart(request,response);
+                    url="/car-detail.jsp";
+                    addToCart(request,response);
                     break;
             }
         System.out.println("url is: "+url);
@@ -318,9 +321,14 @@ public class UserController extends HttpServlet {
 
     }
 
-    private void showCart(HttpServletRequest request, HttpServletResponse response) {
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) {
         int car_id= Integer.parseInt(request.getParameter("car-id"));
+        HttpSession session=request.getSession();
+        User loginUser=(User)session.getAttribute("loginUser");
+        cartServices.insertCart(loginUser.getId(),car_id);
 
+        ArrayList<Cart> cartList= new ArrayList<>(cartServices.selectAllCartByLoginUser(loginUser.getId()));
+        session.setAttribute("cartList",cartList);
     }
 
     private void showUserEditCar(HttpServletRequest request, HttpServletResponse response) {

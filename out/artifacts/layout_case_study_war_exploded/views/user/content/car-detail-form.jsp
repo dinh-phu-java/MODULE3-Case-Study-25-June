@@ -50,15 +50,47 @@
                                 <dt>Car Price</dt>
                                 <dd>$${detailProduct.car_price}</dd>
                             </dl>
+<%--                            <c:forEach items="${cartList}" var="cart">--%>
+<%--                                <c:choose>--%>
+<%--                                    <c:when test = "${(cart.user_id == loginUser.id) && (detailProduct.car_id == cart.car_id)}">--%>
+<%--                                        <a href="#" class="btn btn-primary ">Check Cart List</a>--%>
+<%--                                    </c:when>--%>
+
+<%--                                    <c:when test = "${loginUser.id==ownerUser.id}">--%>
+<%--                                        <a href="/user-control?action=edit-car&car-id=${detailProduct.car_id}" class="btn btn-primary ">Edit your car</a>--%>
+<%--                                    </c:when>--%>
+
+<%--                                    <c:when test = "${(loginUser.id!=ownerUser.id) && (loginUser!=null)}">--%>
+<%--                                        <a href="/user-control?action=add-to-cart&car-id=${detailProduct.car_id}" class="btn btn-danger ">Add to Cart</a>--%>
+<%--                                    </c:when>--%>
+
+<%--                                    <c:when test = "${loginUser.id==null}">--%>
+<%--                                        <a href="<c:url value="/register-user?action=login"/>" class="btn btn-warning ">Please login</a>--%>
+<%--                                    </c:when>--%>
+
+<%--                                    <c:otherwise>--%>
+<%--                                        No comment sir...--%>
+<%--                                    </c:otherwise>--%>
+<%--                                </c:choose>--%>
+<%--                            </c:forEach>--%>
+                        <c:forEach items="${cartList}" var="cart">
+                            <c:if test = "${(cart.user_id == loginUser.id) && (detailProduct.car_id == cart.car_id)}">
+                                <a href="#" class="btn btn-secondary">Check Cart List</a>
+                                <c:set var="checkCart" value="1"/>
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${checkCart!= 1}">
                             <c:if test = "${loginUser.id==ownerUser.id}">
                                 <a href="/user-control?action=edit-car&car-id=${detailProduct.car_id}" class="btn btn-primary ">Edit your car</a>
                             </c:if>
                             <c:if test = "${(loginUser.id!=ownerUser.id) && (loginUser!=null)}">
-                                <a href="" class="btn btn-danger ">Add to Cart</a>
+                                <a href="/user-control?action=add-to-cart&car-id=${detailProduct.car_id}" class="btn btn-danger ">Add to Cart</a>
                             </c:if>
                             <c:if test = "${loginUser.id==null}">
                                 <a href="<c:url value="/register-user?action=login"/>" class="btn btn-warning ">Please login</a>
                             </c:if>
+                        </c:if>
+
                         </div>
 
                     </div>
