@@ -1,5 +1,6 @@
 package dinhphu.codegym.services;
 
+import dinhphu.codegym.model.Post;
 import dinhphu.codegym.model.Product;
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class ProductServices implements IProductServices {
     private static final String selectAllProductStatement = "select * from car";
+    private static final String selectRecentProduct = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id order by car_id desc limit 8";
     private static final String insertProductStatement = "insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String updateProduct = "update car set image_id=?, engine_type = ?,gear=? , front_wheel=?, fuel_type=?,valves=?, car_price=?, description=?, vendor=?, car_type=?, car_name=? where car_id=?";
     private static final String selectProductByUserId = "select * from car where user_id=?";
@@ -143,4 +145,36 @@ public class ProductServices implements IProductServices {
         return product;
     }
 
+    @Override
+    public List<Post> selectRecentProduct(){
+        ArrayList<Post> posts = new ArrayList<>();
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(selectRecentProduct);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                double number =rs.getDouble(9);
+                double carPrice =Double.parseDouble(new DecimalFormat("##.##").format(number));
+
+                String gear=rs.getString(5).toUpperCase();
+                String front_wheel=rs.getString(6).toUpperCase();
+                String fuel_type=rs.getString(7).toUpperCase();
+
+                Post post=new Post(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),gear,front_wheel,fuel_type,rs.getString(8),carPrice,rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
+                posts.add(post);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return posts;
+    }
+
+//    public static void main(String[] args) {
+//        ProductServices productServices=new ProductServices();
+//        ArrayList<Post> list= new ArrayList<>(productServices.selectRecentProduct());
+//        list.forEach(k->{
+//            System.out.println(k.getCar_name());
+//            System.out.println(k.getFullName());
+//        });
+//    }
 }

@@ -82,16 +82,16 @@ public class UserServices implements IUserServices {
         return user;
     }
     @Override
-    public User selectUserByCarId(int carId){
+    public User selectUserByCarId(int userId){
         Connection connection= DatabaseConnection.getConnection();
         User user=null;
         String sqlStatement= "select * from users where user_id=?";
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(sqlStatement);
-            preparedStatement.setInt(1,carId);
+            preparedStatement.setInt(1,userId);
             ResultSet rs= preparedStatement.executeQuery();
             while (rs.next()){
-                int userId= rs.getInt("user_id");
+                userId= rs.getInt("user_id");
                 String userName=rs.getString("username");
                 String email=rs.getString("email");
                 String password=rs.getString("password");

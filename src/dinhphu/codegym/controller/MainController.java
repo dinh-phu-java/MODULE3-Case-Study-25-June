@@ -1,7 +1,11 @@
 package dinhphu.codegym.controller;
 
+import dinhphu.codegym.model.Post;
+import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
+import dinhphu.codegym.services.IProductServices;
 import dinhphu.codegym.services.IUserServices;
+import dinhphu.codegym.services.ProductServices;
 import dinhphu.codegym.services.UserServices;
 
 import javax.servlet.ServletException;
@@ -11,10 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "MainController",urlPatterns={"/home","/register-user"})
 public class MainController extends HttpServlet {
     private static IUserServices userServices= new UserServices();
+    private static IProductServices productServices=new ProductServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
@@ -54,6 +60,8 @@ public class MainController extends HttpServlet {
                 break;
             default:
                 url="/home.jsp";
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                request.setAttribute("recentProducts",recentProducts);
                 break;
         }
         getServletContext().getRequestDispatcher(url).forward(request,response);
