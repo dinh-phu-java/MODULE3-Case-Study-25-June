@@ -53,7 +53,12 @@
                     <!--end items.list.compact-->
                 </section>
                 <p style="font-weight: bold;text-transform: uppercase;">Total Price is: $${totalPrice}</p>
-                <a href="/user-control?action=buy-items" class="btn btn-danger">Buy Items</a>
+                <form action="user-control" method="POST">
+                    <input type="hidden" name="action" value="buy-item">
+                    <input type="hidden" name="total_price" value="${totalPrice}">
+                    <button class="btn btn-danger">Buy Items</button>
+                </form>
+
             </div>
             <!--============ End Listing Detail =========================================================-->
             <!--============ Sidebar ====================================================================-->

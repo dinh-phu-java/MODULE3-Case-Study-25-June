@@ -1,9 +1,6 @@
 package dinhphu.codegym.controller;
 
-import dinhphu.codegym.model.Cart;
-import dinhphu.codegym.model.Post;
-import dinhphu.codegym.model.Product;
-import dinhphu.codegym.model.User;
+import dinhphu.codegym.model.*;
 import dinhphu.codegym.services.*;
 
 import javax.servlet.ServletException;
@@ -78,9 +75,25 @@ public class UserController extends HttpServlet {
         }
         cartServices.deleteAllCart(buyer.getId());
         session.removeAttribute("postList");
+        ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
 
+        for (Orders order : ordersList){
+            if (order.getShipped_date() == null){
+                order.setShipped_date("Delivering");
+            }else{
+                order.setShipped_date("Completed");
+            }
+        }
 
-//        String url="/"
+        session.setAttribute("orderList",ordersList);
+        String url="/order-list.jsp";
+        try {
+            getServletContext().getRequestDispatcher(url).forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        ArrayList<Post> posts=session.getAttribute("postList");
     }
 

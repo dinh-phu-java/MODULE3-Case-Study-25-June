@@ -56,14 +56,14 @@ public class OrderServices implements IOrders{
         }
         return orderList;
     }
-    public static void main(String[] args) {
-        OrderServices orderServices=new OrderServices();
-        orderServices.createOrder(1,"2020-06-24");
-        orderServices.createOrder(1,"2020-05-20");
-        orderServices.createOrder(1,"2020-03-20");
-        ArrayList<Orders> orders=new ArrayList<>(orderServices.selectOrdersByBuyerId(1)) ;
-        orders.forEach(k->{
-            
-        });
-    }
+//    public static void main(String[] args) {
+//        OrderServices orderServices=new OrderServices();
+//        orderServices.createOrder(1,"2020-06-24");
+//        orderServices.createOrder(1,"2020-05-20");
+//        orderServices.createOrder(1,"2020-03-20");
+//        ArrayList<Orders> orders=new ArrayList<>(orderServices.selectOrdersByBuyerId(1)) ;
+//        orders.forEach(k->{
+//
+//        });
+//    }
 }
