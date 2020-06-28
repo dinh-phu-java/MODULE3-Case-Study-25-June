@@ -58,6 +58,10 @@ public class MainController extends HttpServlet {
             case "login":
                 url="/login.jsp";
                 break;
+            case "owner-car-list":
+                url="/owner-car-list.jsp";
+                showOwnerCarList(request,response);
+                break;
             default:
                 url="/home.jsp";
                 ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
@@ -65,5 +69,26 @@ public class MainController extends HttpServlet {
                 break;
         }
         getServletContext().getRequestDispatcher(url).forward(request,response);
+    }
+
+    private void showOwnerCarList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        int page=Integer.parseInt(request.getParameter("page"));
+        final int numberProductPerPage=4;
+        int ownerUserId=Integer.parseInt(request.getParameter("user-id")) ;
+        User ownerUser=(User)userServices.selectUserByUserId(ownerUserId);
+        System.out.println("user Id is "+ownerUser.getId());
+        ArrayList<Product> allList=new ArrayList<>(productServices.selectProductByUserId(ownerUser.getId()));
+        ArrayList<Product> productList=new ArrayList<>();
+        double listSize= (Math.ceil(allList.size()/numberProductPerPage))+1;
+
+        int startElement= (page-1)*numberProductPerPage;
+        for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
+            productList.add(allList.get(i));
+        }
+        session.setAttribute("ownerUser",ownerUser);
+        session.setAttribute("page",page);
+        session.setAttribute("listSize",listSize);
+        session.setAttribute("productList",productList);
     }
 }

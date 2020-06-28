@@ -27,7 +27,7 @@
                                 <i class="fa fa-calendar-o"></i>${product.post_date}
                             </figure>
                             <figure>
-                                <a href="#">
+                                <a href="/home?action=owner-car-list&user-id=${product.user_id}&page=1">
                                     <i class="fa fa-user"></i>${product.fullName}
                                 </a>
                             </figure>
