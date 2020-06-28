@@ -334,10 +334,8 @@ public class UserController extends HttpServlet {
         for (Cart cart:cartList){
             postList.add(productServices.selectPostByCarId(cart.getCar_id()));
         }
-        postList.forEach(k-> {
-            System.out.println(k.getFullName());
-            System.out.println(k.getCar_name());
-        });
+
+        request.setAttribute("postList",postList);
     }
 
     private void addToCart(HttpServletRequest request, HttpServletResponse response) {
