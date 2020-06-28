@@ -346,7 +346,7 @@ public class UserController extends HttpServlet {
             postList.add(productServices.selectPostByCarId(cart.getCar_id()));
         }
 
-        request.setAttribute("postList",postList);
+        session.setAttribute("postList",postList);
     }
 
     private void addToCart(HttpServletRequest request, HttpServletResponse response) {

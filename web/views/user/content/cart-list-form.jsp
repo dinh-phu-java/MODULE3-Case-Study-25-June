@@ -52,7 +52,7 @@
                     </div>
                     <!--end items.list.compact-->
                 </section>
-                <a href="#" class="btn btn-danger">Buy Items</a>
+                <a href="/user-control?action=buy-items" class="btn btn-danger">Buy Items</a>
             </div>
             <!--============ End Listing Detail =========================================================-->
             <!--============ Sidebar ====================================================================-->
