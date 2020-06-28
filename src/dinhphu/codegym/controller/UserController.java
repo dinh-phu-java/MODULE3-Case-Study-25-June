@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 @WebServlet(name = "UserController",urlPatterns = {"/user-action","/user-control"})
@@ -23,6 +25,8 @@ public class UserController extends HttpServlet {
     private static IUserServices userServices=new UserServices();
     private static IProductServices productServices=new ProductServices();
     public static  ICart cartServices=new CartServices();
+    public static IOrders orderServices=new OrderServices();
+    public static IOrderDetail orderDetailServices=new OrderDetailServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
         String url="/home.jsp";
@@ -46,9 +50,38 @@ public class UserController extends HttpServlet {
             case "change-password":
                 changePassword(request,response);
                 break;
+            case "buy-item":
+                buyItems(request,response);
+                break;
         }
 
 
+    }
+
+    private void buyItems(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        User buyer=(User)session.getAttribute("loginUser");
+        double totalPrice=Double.parseDouble(request.getParameter("total_price"));
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String order_date = format.format(new Date());
+        orderServices.createOrder(buyer.getId(),order_date);
+        int order_id= orderServices.getLastRecord();
+
+        ArrayList<Cart> cartList= new ArrayList<>(cartServices.selectAllCartByLoginUser(buyer.getId()));
+        ArrayList<Post> postList= new ArrayList<>();
+        for (Cart cart:cartList){
+            postList.add(productServices.selectPostByCarId(cart.getCar_id()));
+        }
+        for (Post post:postList){
+            orderDetailServices.createOrderDetail(order_id,post.getUser_id(),post.getCar_id(),post.getCar_price());
+        }
+        cartServices.deleteAllCart(buyer.getId());
+        session.removeAttribute("postList");
+
+
+//        String url="/"
+//        ArrayList<Post> posts=session.getAttribute("postList");
     }
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) {
@@ -339,11 +372,12 @@ public class UserController extends HttpServlet {
 
     private void showCartList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session=request.getSession();
+        double totalPrice=0;
 
         User loginUser=(User) session.getAttribute("loginUser");
         ArrayList<Cart> cartList= new ArrayList<>(cartServices.selectAllCartByLoginUser(loginUser.getId()));
         ArrayList<Post> postList= new ArrayList<>();
-        double totalPrice=0;
+
         for (Cart cart:cartList){
             postList.add(productServices.selectPostByCarId(cart.getCar_id()));
         }

@@ -13,6 +13,7 @@ public class CartServices implements ICart{
     public static  final String insertCartQuery="insert into carts(user_id,car_id) values(?,?)";
     public static  final String selectAllCartByUserId="select * from carts where user_id=?";
     public static final String removeCartByUserIdAndCarId="delete from carts where user_id=? and car_id=?";
+    public static final String deleteCartByUserId="delete from carts where user_id=?";
     @Override
     public void insertCart(int user_id, int car_id) {
         Connection connection=DatabaseConnection.getConnection();
@@ -28,7 +29,14 @@ public class CartServices implements ICart{
 
     @Override
     public void deleteAllCart(int user_id) {
-
+        Connection connection=DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(deleteCartByUserId);
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
