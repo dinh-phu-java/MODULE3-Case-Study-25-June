@@ -54,7 +54,7 @@
                                 <a href="/user-control?action=edit-car&car-id=${detailProduct.car_id}" class="btn btn-primary ">Edit your car</a>
                             </c:if>
                             <c:if test = "${(loginUser.id!=ownerUser.id) && (loginUser!=null)}">
-                                <a href="" class="btn btn-danger ">Add to Cart</a>
+                                <a href="/user-control?action=add-to-cart&car-id=${detailProduct.car_id}" class="btn btn-danger ">Add to Cart</a>
                             </c:if>
                             <c:if test = "${loginUser.id==null}">
                                 <a href="<c:url value="/register-user?action=login"/>" class="btn btn-warning ">Please login</a>

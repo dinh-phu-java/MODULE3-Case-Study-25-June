@@ -308,9 +308,18 @@ public class UserController extends HttpServlet {
                     url="/edit-car.jsp";
                     showUserEditCar(request,response);
                     break;
+                case "add-to-cart":
+                    url="/my-cart.jsp";
+                    showCart(request,response);
+                    break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
+
+    }
+
+    private void showCart(HttpServletRequest request, HttpServletResponse response) {
+        int car_id= Integer.parseInt(request.getParameter("car-id"));
 
     }
 
