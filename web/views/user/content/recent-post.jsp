@@ -43,6 +43,9 @@
                 <!--end item-->
             </c:forEach>
         </div>
+        <div style="text-align: center">
+            <a href="/home?action=all-post"  class="btn btn-danger">More Post</a>
+        </div>
     </div>
     <!--end container-->
 </section>
