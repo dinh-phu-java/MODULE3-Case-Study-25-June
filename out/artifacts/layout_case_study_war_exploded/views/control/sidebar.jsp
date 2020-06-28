@@ -65,6 +65,15 @@
                 </li>
 
                 <li class="nav-item has-treeview">
+                    <a href="/user-control?action=cart-list" class="nav-link">
+                        <i class="fa fa-shopping-cart"></i>
+                        <p>
+                            My Carts
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
                     <a href="<c:url value="/user-control?action=user-logout"/>" class="nav-link">
                         <i class="fa fa-anchor"></i>
                         <p>

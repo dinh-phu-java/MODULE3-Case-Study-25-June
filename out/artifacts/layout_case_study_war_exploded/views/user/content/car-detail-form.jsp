@@ -53,7 +53,7 @@
 
                         <c:forEach items="${cartList}" var="cart">
                             <c:if test = "${(cart.user_id == loginUser.id) && (detailProduct.car_id == cart.car_id)}">
-                                <a href="#" class="btn btn-secondary">Check Cart List</a>
+                                <a href="/user-control?action=cart-list" class="btn btn-secondary">Check Cart List</a>
                                 <c:set var="checkCart" value="1"/>
                             </c:if>
                         </c:forEach>
