@@ -52,7 +52,8 @@
                     </div>
                     <!--end items.list.compact-->
                 </section>
-                <a href="#" class="btn btn-danger">Buy Items</a>
+                <p style="font-weight: bold;text-transform: uppercase;">Total Price is: $${totalPrice}</p>
+                <a href="/user-control?action=buy-items" class="btn btn-danger">Buy Items</a>
             </div>
             <!--============ End Listing Detail =========================================================-->
             <!--============ Sidebar ====================================================================-->

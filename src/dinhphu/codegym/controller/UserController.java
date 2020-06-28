@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
@@ -342,10 +343,16 @@ public class UserController extends HttpServlet {
         User loginUser=(User) session.getAttribute("loginUser");
         ArrayList<Cart> cartList= new ArrayList<>(cartServices.selectAllCartByLoginUser(loginUser.getId()));
         ArrayList<Post> postList= new ArrayList<>();
+        double totalPrice=0;
         for (Cart cart:cartList){
             postList.add(productServices.selectPostByCarId(cart.getCar_id()));
         }
+        for (Post post:postList){
+            totalPrice+=post.getCar_price();
+        }
 
+        totalPrice=Double.parseDouble(new DecimalFormat("##.##").format(totalPrice));
+        session.setAttribute("totalPrice",totalPrice);
         session.setAttribute("postList",postList);
     }
 
