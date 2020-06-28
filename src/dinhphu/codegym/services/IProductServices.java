@@ -10,7 +10,7 @@ public interface IProductServices {
     public boolean editProduct(Product product,int carId);
     public Product selectProduct(String token);
     public int rowCount();
-    public List<Product> selectAllProduct();
+    public List<Post> selectAllProduct();
     public List<Post> selectRecentProduct();
     public List<Product> selectProductByUserId(int userId);
     public Product selectProductByCarId(int carId);

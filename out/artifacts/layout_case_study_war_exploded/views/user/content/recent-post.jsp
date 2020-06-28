@@ -44,7 +44,7 @@
             </c:forEach>
         </div>
         <div style="text-align: center">
-            <a href="#"  class="btn btn-danger">More Post</a>
+            <a href="/home?action=all-post&page=1"  class="btn btn-danger">More Post</a>
         </div>
     </div>
     <!--end container-->
