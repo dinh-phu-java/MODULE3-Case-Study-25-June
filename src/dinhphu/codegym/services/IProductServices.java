@@ -12,6 +12,7 @@ public interface IProductServices {
     public int rowCount();
     public List<Post> selectAllProduct();
     public List<Post> selectRecentProduct();
+    public Post selectPostByCarId(int carId);
     public List<Product> selectProductByUserId(int userId);
     public Product selectProductByCarId(int carId);
 }

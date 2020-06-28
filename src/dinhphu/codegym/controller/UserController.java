@@ -317,11 +317,27 @@ public class UserController extends HttpServlet {
                     break;
                 case "cart-list":
                     url="/my-cart-list.jsp";
+                    showCartList(request,response);
                     break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void showCartList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+
+        User loginUser=(User) session.getAttribute("loginUser");
+        ArrayList<Cart> cartList= new ArrayList<>(cartServices.selectAllCartByLoginUser(loginUser.getId()));
+        ArrayList<Post> postList= new ArrayList<>();
+        for (Cart cart:cartList){
+            postList.add(productServices.selectPostByCarId(cart.getCar_id()));
+        }
+        postList.forEach(k-> {
+            System.out.println(k.getFullName());
+            System.out.println(k.getCar_name());
+        });
     }
 
     private void addToCart(HttpServletRequest request, HttpServletResponse response) {
