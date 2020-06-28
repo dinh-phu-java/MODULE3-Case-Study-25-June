@@ -39,6 +39,11 @@ public class MainController extends HttpServlet {
             case "edit-profile":
                 url="/my-profile.jsp";
                 break;
+            default:
+                url="/home.jsp";
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                request.setAttribute("recentProducts",recentProducts);
+                break;
         }
 
         getServletContext().getRequestDispatcher(url).forward(request,response);

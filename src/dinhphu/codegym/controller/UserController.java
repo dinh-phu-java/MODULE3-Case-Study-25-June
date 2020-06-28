@@ -1,5 +1,6 @@
 package dinhphu.codegym.controller;
 
+import dinhphu.codegym.model.Post;
 import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
 import dinhphu.codegym.services.*;
@@ -20,7 +21,7 @@ public class UserController extends HttpServlet {
     private static IProductServices productServices=new ProductServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
-        String url="/views/home.jsp";
+        String url="/home.jsp";
 
         if (action==null){
             action="view";
@@ -31,6 +32,8 @@ public class UserController extends HttpServlet {
                 registerUser(request,response);
                 break;
             case "login":
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                request.setAttribute("recentProducts",recentProducts);
                 loginUser(request,response);
                 break;
             case "edit-profile":
@@ -162,6 +165,7 @@ public class UserController extends HttpServlet {
             if (userMatch){
                 message.add("Login successfully!");
                 url="/home";
+                request.setAttribute("action","view");
                 HttpSession session=request.getSession();
                 session.setMaxInactiveInterval(-1);
                 session.setAttribute("username",userName);
@@ -285,8 +289,8 @@ public class UserController extends HttpServlet {
                     url="/my-profile.jsp";
                     break;
                 case "user-logout":
-                    url="/home.jsp";
-
+                    url="/home";
+                    request.setAttribute("action","view");
                     session.removeAttribute("username");
                     session.removeAttribute("loginUser");
                     break;
