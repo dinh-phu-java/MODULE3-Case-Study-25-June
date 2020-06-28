@@ -16,7 +16,7 @@
                                         <h3>
                                             <a href="/product-controller?action=car-detail&car-id=${post.car_id}" class="tag category">${post.car_type}</a>
                                             <a href="/product-controller?action=car-detail&car-id=${post.car_id}" class="title">${post.car_name}</a>
-                                            <span class="tag">Ad</span>
+
                                         </h3>
                                         <a href="single-listing-1.html" class="image-wrapper background-image">
                                             <img src="${post.image_id}" alt="">
@@ -42,8 +42,8 @@
                                         <p>${post.gear}-${post.engine_type}-${post.fuel_type}-${post.valves}</p>
                                     </div>
                                     <!--end description-->
-                                    <a href="/product-controller?action=car-detail&car-id=${post.car_id}" class="detail text-caps underline">Detail</a>
-                                    <a href="#" class="detail text-caps underline">Remove from cart</a>
+
+                                    <a href="/user-action?action=remove-cart&car-id=${post.car_id}" class="detail text-caps underline">Remove from cart</a>
                                 </div>
                             </div>
                             <!--end item-->

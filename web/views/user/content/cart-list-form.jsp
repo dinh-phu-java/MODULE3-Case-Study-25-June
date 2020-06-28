@@ -43,7 +43,7 @@
                                     </div>
                                     <!--end description-->
 
-                                    <a href="/user-action" class="detail text-caps underline">Remove from cart</a>
+                                    <a href="/user-action?action=remove-cart&car-id=${post.car_id}" class="detail text-caps underline">Remove from cart</a>
                                 </div>
                             </div>
                             <!--end item-->

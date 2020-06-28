@@ -319,10 +319,21 @@ public class UserController extends HttpServlet {
                     url="/my-cart-list.jsp";
                     showCartList(request,response);
                     break;
+                case "remove-cart":
+                    url="/my-cart-list.jsp";
+                    removeCart(request,response);
+                    showCartList(request,response);
+                    break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void removeCart(HttpServletRequest request, HttpServletResponse response) {
+        int car_id=Integer.parseInt(request.getParameter("car-id"));
+        User loginUser= (User)request.getSession().getAttribute("loginUser");
+        cartServices.removeCart(loginUser.getId(),car_id);
     }
 
     private void showCartList(HttpServletRequest request, HttpServletResponse response) {
