@@ -34,7 +34,7 @@
     <!--*********************************************************************************************************-->
 
     <section class="content">
-        <c:import url="views/user/content/car-detail-form.jsp"/>
+        <c:import url="views/user/content/cart-list-form.jsp"/>
         <!--end block-->
     </section>
     <!--end content-->

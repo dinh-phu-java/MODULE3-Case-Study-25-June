@@ -27,6 +27,9 @@
                 </c:when>
                 <c:otherwise>
                     <li>
+                        <a href='<c:url value="/user-control?action=cart-list"/>'><i class="fa fa-shopping-cart"></i> My Cart</a>
+                    </li>
+                    <li>
                         <a href='<c:url value="/user-control?action=user-profile"/>'><i class="fa fa-user"></i> ${sessionScope.loginUser.fullName}</a>
                     </li>
                     <li>

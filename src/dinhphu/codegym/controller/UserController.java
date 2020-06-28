@@ -315,6 +315,9 @@ public class UserController extends HttpServlet {
                     url="/car-detail.jsp";
                     addToCart(request,response);
                     break;
+                case "cart-list":
+                    url="/my-cart-list.jsp";
+                    break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
