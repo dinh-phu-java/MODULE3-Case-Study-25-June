@@ -50,6 +50,7 @@ public class UserController extends HttpServlet {
             case "buy-item":
                 buyItems(request,response);
                 break;
+
         }
 
 
@@ -85,6 +86,7 @@ public class UserController extends HttpServlet {
             }
         }
 
+        request.setAttribute("totalPrice",totalPrice);
         session.setAttribute("orderList",ordersList);
         String url="/order-list.jsp";
         try {
@@ -94,7 +96,7 @@ public class UserController extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        ArrayList<Post> posts=session.getAttribute("postList");
+
     }
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) {
@@ -371,10 +373,39 @@ public class UserController extends HttpServlet {
                     removeCart(request,response);
                     showCartList(request,response);
                     break;
+                case "show-order-list":
+                    url="/order-list.jsp";
+                    showOrderList(request,response);
+                    break;
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void showOrderList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        User buyer=(User)session.getAttribute("loginUser");
+
+        ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
+
+        for (Orders order : ordersList){
+            if (order.getShipped_date() == null){
+                order.setShipped_date("Delivering");
+            }else{
+                order.setShipped_date("Completed");
+            }
+        }
+
+        session.setAttribute("orderList",ordersList);
+        String url="/order-list.jsp";
+        try {
+            getServletContext().getRequestDispatcher(url).forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void removeCart(HttpServletRequest request, HttpServletResponse response) {
