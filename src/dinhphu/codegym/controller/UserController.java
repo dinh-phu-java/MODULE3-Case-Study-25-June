@@ -259,13 +259,10 @@ public class UserController extends HttpServlet {
     }
 
     private void orderAdminList(HttpServletRequest request, HttpServletResponse response) {
-//        HttpSession session=request.getSession();
-//        User buyer=(User)session.getAttribute("loginUser");
+
 
         ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectDeliveringOrders());
-//        int size=ordersList.size();
-//        ArrayList<Double> totalPriceList=new ArrayList<>();
-//        ArrayList<String> statusList=new ArrayList<>();
+
         ArrayList<String[]> infoList=new ArrayList<>();
         String status="";
         double price=0;
@@ -282,11 +279,9 @@ public class UserController extends HttpServlet {
             infoList.add(list);
         }
 
-//        request.setAttribute("size",size);
+
         request.setAttribute("infoList",infoList);
-//        request.setAttribute("statusList",statusList);
-//        request.setAttribute("totalPriceList",totalPriceList);
-//        session.setAttribute("orderList",ordersList);
+
     }
 
     private void registerUser(HttpServletRequest request, HttpServletResponse response) {
@@ -426,6 +421,11 @@ public class UserController extends HttpServlet {
                     url="/order-list.jsp";
                     showOrderList(request,response);
                     break;
+                case "order-list":
+                    url="/admin-page.jsp";
+                    User loginUser=userServices.selectUser("admin");
+                    session.setAttribute("loginUser",loginUser);
+                    orderAdminList(request,response);
             }
         System.out.println("url is: "+url);
             getServletContext().getRequestDispatcher(url).forward(request,response);
@@ -535,6 +535,5 @@ public class UserController extends HttpServlet {
         session.setAttribute("listSize",listSize);
         session.setAttribute("productList",productList);
     }
-
 
 }

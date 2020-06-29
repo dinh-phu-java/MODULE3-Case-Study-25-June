@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="<c:url value="/user-control?action=user-profile"/>" class="nav-link">
+                    <a href="<c:url value="/user-control?action=order-list"/>" class="nav-link">
                         <i class="fa fa-user"></i>
                         <p>
                             Order List
