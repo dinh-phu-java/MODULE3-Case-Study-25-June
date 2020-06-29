@@ -83,7 +83,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="/user-control?action=sold-item" class="nav-link">
-                        <i class="fa fa-sellcast"></i>
+                        <i class="fa fa-address-book"></i>
                         <p>
                             Sold Items
                         </p>
