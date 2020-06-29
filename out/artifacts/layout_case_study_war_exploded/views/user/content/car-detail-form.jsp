@@ -51,23 +51,27 @@
                                 <dd>$${detailProduct.car_price}</dd>
                             </dl>
 
-                        <c:forEach items="${cartList}" var="cart">
-                            <c:if test = "${(cart.user_id == loginUser.id) && (detailProduct.car_id == cart.car_id)}">
-                                <a href="/user-control?action=cart-list" class="btn btn-secondary">Check Cart List</a>
-                                <c:set var="checkCart" value="1"/>
+                            <c:forEach items="${cartList}" var="cart">
+                                <c:if test="${(cart.user_id == loginUser.id) && (detailProduct.car_id == cart.car_id)}">
+                                    <a href="/user-control?action=cart-list" class="btn btn-secondary">Check Cart
+                                        List</a>
+                                    <c:set var="checkCart" value="1"/>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${checkCart!= 1}">
+                                <c:if test="${loginUser.id==ownerUser.id}">
+                                    <a href="/user-control?action=edit-car&car-id=${detailProduct.car_id}"
+                                       class="btn btn-primary ">Edit your car</a>
+                                </c:if>
+                                <c:if test="${(loginUser.id!=ownerUser.id) && (loginUser!=null)}">
+                                    <a href="/user-control?action=add-to-cart&car-id=${detailProduct.car_id}"
+                                       class="btn btn-danger ">Add to Cart</a>
+                                </c:if>
+                                <c:if test="${loginUser.id==null}">
+                                    <a href="<c:url value="/register-user?action=login"/>" class="btn btn-warning ">Please
+                                        login</a>
+                                </c:if>
                             </c:if>
-                        </c:forEach>
-                        <c:if test="${checkCart!= 1}">
-                            <c:if test = "${loginUser.id==ownerUser.id}">
-                                <a href="/user-control?action=edit-car&car-id=${detailProduct.car_id}" class="btn btn-primary ">Edit your car</a>
-                            </c:if>
-                            <c:if test = "${(loginUser.id!=ownerUser.id) && (loginUser!=null)}">
-                                <a href="/user-control?action=add-to-cart&car-id=${detailProduct.car_id}" class="btn btn-danger ">Add to Cart</a>
-                            </c:if>
-                            <c:if test = "${loginUser.id==null}">
-                                <a href="<c:url value="/register-user?action=login"/>" class="btn btn-warning ">Please login</a>
-                            </c:if>
-                        </c:if>
 
                         </div>
 
@@ -90,7 +94,8 @@
                                     <div class="author-description">
                                         <h3>${ownerUser.fullName}</h3>
                                         <div class="rating" data-rating="4"></div>
-                                        <a href="seller-detail-1.html" class="text-uppercase">Show My Car Listings
+                                        <a href="/home?action=owner-car-list&user-id=${ownerUser.id}&page=1"
+                                           class="text-uppercase">Show My Car Listings
                                             <span class="appendix">(12)</span>
                                         </a>
                                     </div>
@@ -110,17 +115,20 @@
                                 <form class="form email">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label">Name</label>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input name="name" type="text" class="form-control" id="name"
+                                               placeholder="Your Name">
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="email" class="col-form-label">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input name="email" type="email" class="form-control" id="email"
+                                               placeholder="Your Email">
                                     </div>
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="message" class="col-form-label">Message</label>
-                                        <textarea name="message" id="message" class="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
+                                        <textarea name="message" id="message" class="form-control" rows="4"
+                                                  placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
                                     </div>
                                     <!--end form-group-->
                                     <button type="submit" class="btn btn-primary">Send</button>
@@ -134,140 +142,52 @@
                 </section>
                 <!--End Author-->
                 <section class="content">
-                    <h2>Similar Ads</h2>
+                    <h2>Recent Post</h2>
                     <div class="items list compact">
-                        <div class="item">
-                            <div class="ribbon-featured">Featured</div>
-                            <!--end ribbon-->
-                            <div class="wrapper">
-                                <div class="image">
-                                    <h3>
-                                        <a href="#" class="tag category">Home & Decor</a>
-                                        <a href="single-listing-1.html" class="title">Furniture for sale</a>
-                                        <span class="tag">Offer</span>
-                                    </h3>
-                                    <a href="single-listing-1.html" class="image-wrapper background-image">
-                                        <img src="assets/img/image-01.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!--end image-->
-                                <h4 class="location">
-                                    <a href="#">Manhattan, NY</a>
-                                </h4>
-                                <div class="price">$80</div>
-                                <div class="meta">
-                                    <figure>
-                                        <i class="fa fa-calendar-o"></i>02.05.2017
-                                    </figure>
-                                    <figure>
-                                        <a href="#">
-                                            <i class="fa fa-user"></i>Jane Doe
-                                        </a>
-                                    </figure>
-                                </div>
-                                <!--end meta-->
-                                <div class="description">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis lobortis</p>
-                                </div>
-                                <!--end description-->
-                                <a href="single-listing-1.html" class="detail text-caps underline">Detail</a>
-                            </div>
-                        </div>
-                        <!--end item-->
+                        <c:forEach items="${featureProducts}" var="product">
 
-                        <div class="item">
-                            <div class="wrapper">
-                                <div class="image">
-                                    <h3>
-                                        <a href="#" class="tag category">Education</a>
-                                        <a href="single-listing-1.html" class="title">Creative Course</a>
-                                        <span class="tag">Offer</span>
-                                    </h3>
-                                    <a href="single-listing-1.html" class="image-wrapper background-image">
-                                        <img src="assets/img/image-02.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!--end image-->
-                                <h4 class="location">
-                                    <a href="#">Nashville, TN</a>
-                                </h4>
-                                <div class="price">$125</div>
-                                <div class="meta">
-                                    <figure>
-                                        <i class="fa fa-calendar-o"></i>28.04.2017
-                                    </figure>
-                                    <figure>
-                                        <a href="#">
-                                            <i class="fa fa-user"></i>Peter Browner
-                                        </a>
-                                    </figure>
-                                </div>
-                                <!--end meta-->
-                                <div class="description">
-                                    <p>Proin at tortor eros. Phasellus porta nec elit non lacinia. Nam bibendum erat at leo faucibus vehicula. Ut laoreet porttitor risus, eget suscipit tellus tincidunt sit amet. </p>
-                                </div>
-                                <!--end description-->
-                                <div class="additional-info">
-                                    <ul>
-                                        <li>
-                                            <figure>Start Date</figure>
-                                            <aside>25.06.2017 09:00</aside>
-                                        </li>
-                                        <li>
-                                            <figure>Length</figure>
-                                            <aside>2 months</aside>
-                                        </li>
-                                        <li>
-                                            <figure>Bedrooms</figure>
-                                            <aside>3</aside>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!--end addition-info-->
-                                <a href="single-listing-1.html" class="detail text-caps underline">Detail</a>
-                            </div>
-                        </div>
-                        <!--end item-->
 
-                        <div class="item">
-                            <div class="wrapper">
-                                <div class="image">
-                                    <h3>
-                                        <a href="#" class="tag category">Adventure</a>
-                                        <a href="single-listing-1.html" class="title">Into The Wild</a>
-                                        <span class="tag">Ad</span>
-                                    </h3>
-                                    <a href="single-listing-1.html" class="image-wrapper background-image">
-                                        <img src="assets/img/image-03.jpg" alt="">
-                                    </a>
-                                </div>
-                                <!--end image-->
-                                <h4 class="location">
-                                    <a href="#">Seattle, WA</a>
-                                </h4>
-                                <div class="price">$1,560</div>
-                                <div class="meta">
-                                    <figure>
-                                        <i class="fa fa-calendar-o"></i>21.04.2017
-                                    </figure>
-                                    <figure>
-                                        <a href="#">
-                                            <i class="fa fa-user"></i>Peak Agency
+                            <div class="item">
+                                <div class="ribbon-featured">Featured</div>
+                                <!--end ribbon-->
+                                <div class="wrapper">
+                                    <div class="image">
+                                        <h3>
+                                            <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="tag category">${product.car_type}</a>
+                                            <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="title">${product.car_name}</a>
+                                            <span class="tag">Offer</span>
+                                        </h3>
+                                        <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="image-wrapper background-image">
+                                            <img src="${product.image_id}" alt="">
                                         </a>
-                                    </figure>
+                                    </div>
+                                    <!--end image-->
+                                    <h4 class="location">
+                                        <a href="/home?action=owner-car-list&user-id=${product.user_id}&page=1">${product.address}</a>
+                                    </h4>
+                                    <div class="price">$${product.car_price}</div>
+                                    <div class="meta">
+                                        <figure>
+                                            <i class="fa fa-calendar-o"></i>${product.post_date}
+                                        </figure>
+                                        <figure>
+                                            <a href="/home?action=owner-car-list&user-id=${product.user_id}&page=1">
+                                                <i class="fa fa-user"></i>${product.fullName}
+                                            </a>
+                                        </figure>
+                                    </div>
+                                    <!--end meta-->
+                                    <div class="description">
+                                        <p>${product.gear}-${product.engine_type}-${product.fuel_type}-${product.valves}</p>
+                                    </div>
+                                    <!--end description-->
+                                    <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="detail text-caps underline">Detail</a>
                                 </div>
-                                <!--end meta-->
-                                <div class="description">
-                                    <p>Nam eget ullamcorper massa. Morbi fringilla lectus nec lorem tristique gravida</p>
-                                </div>
-                                <!--end description-->
-                                <a href="single-listing-1.html" class="detail text-caps underline">Detail</a>
                             </div>
-                        </div>
-                        <!--end item-->
-
+                            <!--end item-->
+                        </c:forEach>
                         <div class="center">
-                            <a href="#" class="btn btn-primary text-caps btn-framed">Show All</a>
+                            <a href="/home?action=all-post&page=1" class="btn btn-primary text-caps btn-framed">Show All</a>
                         </div>
                     </div>
                     <!--end items.list.compact-->
@@ -283,13 +203,16 @@
                         <form class="sidebar-form form">
                             <div class="form-group">
                                 <label for="what" class="col-form-label">What?</label>
-                                <input name="keyword" type="text" class="form-control" id="what" placeholder="What are you looking for?">
+                                <input name="keyword" type="text" class="form-control" id="what"
+                                       placeholder="What are you looking for?">
                             </div>
                             <!--end form-group-->
                             <div class="form-group">
                                 <label for="input-location" class="col-form-label">Where?</label>
-                                <input name="location" type="text" class="form-control" id="input-location" placeholder="Enter Location">
-                                <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top" title="Find My Position"><i class="fa fa-map-marker"></i></span>
+                                <input name="location" type="text" class="form-control" id="input-location"
+                                       placeholder="Enter Location">
+                                <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top"
+                                      title="Find My Position"><i class="fa fa-map-marker"></i></span>
                             </div>
                             <!--end form-group-->
                             <div class="form-group">
@@ -308,7 +231,9 @@
 
                             <!--Alternative Form-->
                             <div class="alternative-search-form">
-                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i class="fa fa-plus"></i>More Options</a>
+                                <a href="#collapseAlternativeSearchForm" class="icon" data-toggle="collapse"
+                                   aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i
+                                        class="fa fa-plus"></i>More Options</a>
                                 <div class="collapse" id="collapseAlternativeSearchForm">
                                     <div class="wrapper">
                                         <label>
@@ -328,17 +253,20 @@
                                             Featured
                                         </label>
                                         <div class="form-group">
-                                            <input name="min_price" type="text" class="form-control small" id="min-price" placeholder="Minimal Price">
+                                            <input name="min_price" type="text" class="form-control small"
+                                                   id="min-price" placeholder="Minimal Price">
                                             <span class="input-group-addon small">$</span>
                                         </div>
                                         <!--end form-group-->
                                         <div class="form-group">
-                                            <input name="max_price" type="text" class="form-control small" id="max-price" placeholder="Maximal Price">
+                                            <input name="max_price" type="text" class="form-control small"
+                                                   id="max-price" placeholder="Maximal Price">
                                             <span class="input-group-addon small">$</span>
                                         </div>
                                         <!--end form-group-->
                                         <div class="form-group">
-                                            <select name="distance" id="distance" class="small" data-placeholder="Distance" >
+                                            <select name="distance" id="distance" class="small"
+                                                    data-placeholder="Distance">
                                                 <option value="">Distance</option>
                                                 <option value="1">1km</option>
                                                 <option value="2">5km</option>
@@ -358,34 +286,35 @@
                         <!--============ End Side Bar Search Form =======================================-->
                     </section>
                     <section>
-                        <h2>Similar Ads</h2>
+                        <h2>${loginUser.fullName} Recent Post</h2>
                         <div class="items compact">
+                           <c:forEach items="${ownerProducts}" var="product">
                             <div class="item">
                                 <div class="ribbon-featured">Featured</div>
                                 <!--end ribbon-->
                                 <div class="wrapper">
                                     <div class="image">
                                         <h3>
-                                            <a href="#" class="tag category">Home & Decor</a>
-                                            <a href="single-listing-1.html" class="title">Furniture for sale</a>
+                                            <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="tag category">${product.car_type}</a>
+                                            <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="title">${product.car_name}</a>
                                             <span class="tag">Offer</span>
                                         </h3>
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/img/image-01.jpg" alt="">
+                                        <a href="/product-controller?action=car-detail&car-id=${product.car_id}" class="image-wrapper background-image">
+                                            <img src="${product.image_id}" alt="">
                                         </a>
                                     </div>
                                     <!--end image-->
                                     <h4 class="location">
-                                        <a href="#">Manhattan, NY</a>
+                                        <a href="/home?action=owner-car-list&user-id=${product.user_id}&page=1">${product.address}</a>
                                     </h4>
-                                    <div class="price">$80</div>
+                                    <div class="price">$${product.car_price}</div>
                                     <div class="meta">
                                         <figure>
-                                            <i class="fa fa-calendar-o"></i>02.05.2017
+                                            <i class="fa fa-calendar-o"></i>${product.post_date}
                                         </figure>
                                         <figure>
-                                            <a href="#">
-                                                <i class="fa fa-user"></i>Jane Doe
+                                            <a href="/home?action=owner-car-list&user-id=${product.user_id}&page=1">
+                                                <i class="fa fa-user"></i>${product.fullName}
                                             </a>
                                         </figure>
                                     </div>
@@ -394,71 +323,7 @@
                                 <!--end wrapper-->
                             </div>
                             <!--end item-->
-
-                            <div class="item">
-                                <div class="wrapper">
-                                    <div class="image">
-                                        <h3>
-                                            <a href="#" class="tag category">Education</a>
-                                            <a href="single-listing-1.html" class="title">Creative Course</a>
-                                            <span class="tag">Offer</span>
-                                        </h3>
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/img/image-02.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">Nashville, TN</a>
-                                    </h4>
-                                    <div class="price">$125</div>
-                                    <div class="meta">
-                                        <figure>
-                                            <i class="fa fa-calendar-o"></i>28.04.2017
-                                        </figure>
-                                        <figure>
-                                            <a href="#">
-                                                <i class="fa fa-user"></i>Peter Browner
-                                            </a>
-                                        </figure>
-                                    </div>
-                                    <!--end meta-->
-                                </div>
-                                <!--end wrapper-->
-                            </div>
-                            <!--end item-->
-
-                            <div class="item">
-                                <div class="wrapper">
-                                    <div class="image">
-                                        <h3>
-                                            <a href="#" class="tag category">Adventure</a>
-                                            <a href="single-listing-1.html" class="title">Into The Wild</a>
-                                            <span class="tag">Ad</span>
-                                        </h3>
-                                        <a href="single-listing-1.html" class="image-wrapper background-image">
-                                            <img src="assets/img/image-03.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <!--end image-->
-                                    <h4 class="location">
-                                        <a href="#">Seattle, WA</a>
-                                    </h4>
-                                    <div class="price">$1,560</div>
-                                    <div class="meta">
-                                        <figure>
-                                            <i class="fa fa-calendar-o"></i>21.04.2017
-                                        </figure>
-                                        <figure>
-                                            <a href="#">
-                                                <i class="fa fa-user"></i>Peak Agency
-                                            </a>
-                                        </figure>
-                                    </div>
-                                    <!--end meta-->
-                                </div>
-                            </div>
-                            <!--end item-->
+                           </c:forEach>
                         </div>
 
                     </section>

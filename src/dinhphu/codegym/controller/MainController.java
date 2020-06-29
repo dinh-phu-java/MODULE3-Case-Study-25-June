@@ -80,7 +80,7 @@ public class MainController extends HttpServlet {
             default:
                 url="/home.jsp";
                 ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct(recentPostSize)) ;
-                ArrayList<Post> featureProducts=new ArrayList<>(productServices.selectRecentProduct(featurePostSize)) ;
+                ArrayList<Post> featureProducts=new ArrayList<>(productServices.selectRecentProduct(featurePostSize));
                 request.setAttribute("recentProducts",recentProducts);
                 request.setAttribute("featureProducts",featureProducts);
                 break;

@@ -13,6 +13,7 @@ public interface IProductServices {
     public List<Post> selectAllProduct();
     public List<Post> selectSearchProduct(String name,String address, String carType);
     public List<Post> selectRecentProduct(int size);
+    public List<Post> selectPostByUserId(int user_id);
     public Post selectPostByCarId(int carId);
     public List<Product> selectProductByUserId(int userId);
     public List<Product> selectSoldProduct(int userId);

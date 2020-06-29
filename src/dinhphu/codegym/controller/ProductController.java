@@ -1,5 +1,6 @@
 package dinhphu.codegym.controller;
 
+import dinhphu.codegym.model.Post;
 import dinhphu.codegym.model.Product;
 import dinhphu.codegym.model.User;
 import dinhphu.codegym.services.DatabaseConnection;
@@ -26,6 +27,7 @@ import java.util.regex.Pattern;
 @MultipartConfig
 public class ProductController extends HttpServlet {
 
+    public static final int featurePostSize = 3;
     private ProductServices productServices = new ProductServices();
     private IUserServices userServices = new UserServices();
 
@@ -283,6 +285,11 @@ public class ProductController extends HttpServlet {
         HttpSession session=request.getSession();
         Product detailProduct=productServices.selectProductByCarId(detailCarId);
         User ownerUser=userServices.selectUserByCarId(detailProduct.getUser_id());
+        ArrayList<Post> featureProducts=new ArrayList<>(productServices.selectRecentProduct(featurePostSize));
+        ArrayList<Post> ownerProducts=new ArrayList<>(productServices.selectPostByUserId(ownerUser.getId()));
+
+        session.setAttribute("featureProducts",featureProducts);
+        session.setAttribute("ownerProducts",ownerProducts);
         session.setAttribute("detailProduct",detailProduct);
         session.setAttribute("ownerUser",ownerUser);
 
