@@ -92,9 +92,15 @@ public class MainController extends HttpServlet {
         HttpSession session=request.getSession();
         int page=Integer.parseInt(request.getParameter("page"));
         final int numberProductPerPage=4;
-        String car_name="%"+request.getParameter("car_name").trim()+"%";
-        String location=request.getParameter("location").trim();
-        String car_type="%"+request.getParameter("car_type").trim()+"%";
+        String car_name=(String)session.getAttribute("car_name");
+        String location=(String)session.getAttribute("location");
+        String car_type=(String)session.getAttribute("car_type");
+        if(car_name== null || location==null || car_type==null){
+            car_name="%"+request.getParameter("car_name").trim()+"%";
+            location=request.getParameter("location").trim();
+            car_type="%"+request.getParameter("car_type").trim()+"%";
+        }
+
 
         ArrayList<Post> allList=new ArrayList<>(productServices.selectSearchProduct(car_name,location,car_type));
         ArrayList<Post> productList=new ArrayList<>();
@@ -104,7 +110,9 @@ public class MainController extends HttpServlet {
         for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
             productList.add(allList.get(i));
         }
-
+        session.setAttribute("car_name",car_name);
+        session.setAttribute("location",location);
+        session.setAttribute("car_type",car_type);
         session.setAttribute("page",page);
         session.setAttribute("listSize",listSize);
         session.setAttribute("productList",productList);
