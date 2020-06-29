@@ -52,13 +52,24 @@
                     </div>
                     <!--end items.list.compact-->
                 </section>
-                <p style="font-weight: bold;text-transform: uppercase;">Total Price is: $${totalPrice}</p>
-                <form action="user-control" method="POST">
-                    <input type="hidden" name="action" value="buy-item">
-                    <input type="hidden" name="total_price" value="${totalPrice}">
-                    <button class="btn btn-danger">Buy Items</button>
-                </form>
-
+                <c:choose>
+                    <c:when test="${totalPrice>0}">
+                        <p style="font-weight: bold;text-transform: uppercase; color:red;">Total Price is: $${totalPrice}</p>
+                        <c:if test="${showOrderListBtn==null}">
+                            <form action="user-control" method="POST">
+                                <input type="hidden" name="action" value="buy-item">
+                                <input type="hidden" name="total_price" value="${totalPrice}">
+                                <button class="btn btn-danger">Buy Items</button>
+                            </form>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <p>No Items</p>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${showOrderListBtn!=null}">
+                    <a href='<c:url value="/user-control?action=show-order-list"/>' class="btn btn-primary">Go to Order List</a>
+                </c:if>
             </div>
             <!--============ End Listing Detail =========================================================-->
             <!--============ Sidebar ====================================================================-->

@@ -51,7 +51,6 @@ public class UserController extends HttpServlet {
             case "buy-item":
                 buyItems(request,response);
                 break;
-
         }
 
 
@@ -92,7 +91,8 @@ public class UserController extends HttpServlet {
 
         request.setAttribute("totalPrice",totalPrice);
         session.setAttribute("orderList",ordersList);
-        String url="/order-list.jsp";
+        String url="/my-cart-list.jsp";
+        request.setAttribute("showOrderListBtn","show");
         try {
             getServletContext().getRequestDispatcher(url).forward(request,response);
         } catch (ServletException e) {
