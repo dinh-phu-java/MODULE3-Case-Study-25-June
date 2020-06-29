@@ -11,6 +11,7 @@ public class OrderServices implements IOrders{
     public static final String createOrderQuery="insert into orders(buyer_id,order_date,shipped_date) value(?,?,null)";
     public static final String selectLastRow="select max(order_id) from orders";
     public static final String selectOrderByBuyerId="select * from orders where buyer_id=? order by order_id desc";
+    public static final String selectDeliveringOrder="select * from orders where shipped_date is null order by order_id desc";
 
     @Override
     public void createOrder(int buyer_id , String order_date) {
@@ -47,6 +48,22 @@ public class OrderServices implements IOrders{
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(selectOrderByBuyerId);
             preparedStatement.setInt(1,buyer_id);
+            ResultSet rs=preparedStatement.executeQuery();
+            while (rs.next()){
+                orderList.add(new Orders(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return orderList;
+    }
+    @Override
+    public List<Orders> selectDeliveringOrders(){
+        ArrayList<Orders> orderList= new ArrayList<>();
+        Connection connection= DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(selectDeliveringOrder);
+
             ResultSet rs=preparedStatement.executeQuery();
             while (rs.next()){
                 orderList.add(new Orders(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4)));

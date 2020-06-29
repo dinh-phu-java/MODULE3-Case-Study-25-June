@@ -19,17 +19,17 @@
                                         <th>Order detail</th>
                                         <th>Confirm Order</th>
                                     </tr>
-<%--                                    <c:forEach items="${infoList}" var="info">--%>
-<%--                                        <tr>--%>
-<%--                                            <td>${info[0]}</td>--%>
-<%--                                            <td>${info[1]}</td>--%>
-<%--                                            <td>${info[2]}</td>--%>
-<%--                                            <td>${info[3]}</td>--%>
-<%--                                            <td>${info[4]}</td>--%>
-<%--                                            <td><a href="#">Detail</a></td>--%>
-<%--                                            <td><a href="#">Confirm</a></td>--%>
-<%--                                        </tr>--%>
-<%--                                    </c:forEach>--%>
+                                    <c:forEach items="${infoList}" var="info">
+                                        <tr>
+                                            <td>${info[0]}</td>
+                                            <td>${info[1]}</td>
+                                            <td>${info[2]}</td>
+                                            <td>${info[3]}</td>
+                                            <td>${info[4]}</td>
+                                            <td><a href="#">Detail</a></td>
+                                            <td><a href="#">Confirm</a></td>
+                                        </tr>
+                                    </c:forEach>
                                 </table>
                             </div>
                         </div>

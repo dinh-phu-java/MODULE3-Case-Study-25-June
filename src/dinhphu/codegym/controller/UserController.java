@@ -232,11 +232,10 @@ public class UserController extends HttpServlet {
                     url="/admin-page.jsp";
                     User loginUser=userServices.selectUser("admin");
                     session.setAttribute("loginUser",loginUser);
-
+                    orderAdminList(request,response);
                 }else{
                     url="/home";
                     request.setAttribute("action","view");
-                    orderAdminList(request,response);
                 }
 
                 session.setAttribute("username",userName);
@@ -260,13 +259,13 @@ public class UserController extends HttpServlet {
     }
 
     private void orderAdminList(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session=request.getSession();
-        User buyer=(User)session.getAttribute("loginUser");
+//        HttpSession session=request.getSession();
+//        User buyer=(User)session.getAttribute("loginUser");
 
-        ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
-        int size=ordersList.size();
-        ArrayList<Double> totalPriceList=new ArrayList<>();
-        ArrayList<String> statusList=new ArrayList<>();
+        ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectDeliveringOrders());
+//        int size=ordersList.size();
+//        ArrayList<Double> totalPriceList=new ArrayList<>();
+//        ArrayList<String> statusList=new ArrayList<>();
         ArrayList<String[]> infoList=new ArrayList<>();
         String status="";
         double price=0;
@@ -274,7 +273,6 @@ public class UserController extends HttpServlet {
 
             price=productServices.getTotalPrice(order.getOrder_id());
             if (order.getShipped_date() == null){
-
                 status="Delivering";
             }else{
 
@@ -284,11 +282,11 @@ public class UserController extends HttpServlet {
             infoList.add(list);
         }
 
-        request.setAttribute("size",size);
+//        request.setAttribute("size",size);
         request.setAttribute("infoList",infoList);
-        request.setAttribute("statusList",statusList);
-        request.setAttribute("totalPriceList",totalPriceList);
-        session.setAttribute("orderList",ordersList);
+//        request.setAttribute("statusList",statusList);
+//        request.setAttribute("totalPriceList",totalPriceList);
+//        session.setAttribute("orderList",ordersList);
     }
 
     private void registerUser(HttpServletRequest request, HttpServletResponse response) {
