@@ -209,21 +209,36 @@ public class UserController extends HttpServlet {
         String hashPassword= PasswordUtil.hashPassword(password);
         ArrayList<String> message= new ArrayList<>();
         String url="/login.jsp";
+        boolean isAdmin=false;
+
+        HttpSession session=request.getSession();
+        session.setMaxInactiveInterval(-1);
+
         if ((userCheck || emailCheck) && passwordCheck){
             ArrayList<User> userList=new ArrayList<>(userServices.selectAllUser());
             boolean userMatch=false;
             for (User user : userList){
                 if ( (user.getEmail().equalsIgnoreCase(userName) || user.getUserName().equalsIgnoreCase(userName)) && user.getPassword().equalsIgnoreCase(hashPassword)){
                     userMatch=true;
+                    if (user.getUserName().equalsIgnoreCase("admin")){
+                        isAdmin=true;
+                    }
                     break;
                 }
             }
             if (userMatch){
                 message.add("Login successfully!");
-                url="/home";
-                request.setAttribute("action","view");
-                HttpSession session=request.getSession();
-                session.setMaxInactiveInterval(-1);
+                if (isAdmin){
+                    url="/admin-page.jsp";
+                    User loginUser=userServices.selectUser("admin");
+                    session.setAttribute("loginUser",loginUser);
+
+                }else{
+                    url="/home";
+                    request.setAttribute("action","view");
+                    orderAdminList(request,response);
+                }
+
                 session.setAttribute("username",userName);
             }else{
                 message.add("User name or password is not correct");
@@ -242,6 +257,38 @@ public class UserController extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void orderAdminList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        User buyer=(User)session.getAttribute("loginUser");
+
+        ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
+        int size=ordersList.size();
+        ArrayList<Double> totalPriceList=new ArrayList<>();
+        ArrayList<String> statusList=new ArrayList<>();
+        ArrayList<String[]> infoList=new ArrayList<>();
+        String status="";
+        double price=0;
+        for (Orders order : ordersList){
+
+            price=productServices.getTotalPrice(order.getOrder_id());
+            if (order.getShipped_date() == null){
+
+                status="Delivering";
+            }else{
+
+                status="Completed";
+            }
+            String[] list=new String[]{String.valueOf(order.getOrder_id()),order.getOrder_date(),order.getShipped_date(),status, String.valueOf(price)};
+            infoList.add(list);
+        }
+
+        request.setAttribute("size",size);
+        request.setAttribute("infoList",infoList);
+        request.setAttribute("statusList",statusList);
+        request.setAttribute("totalPriceList",totalPriceList);
+        session.setAttribute("orderList",ordersList);
     }
 
     private void registerUser(HttpServletRequest request, HttpServletResponse response) {
