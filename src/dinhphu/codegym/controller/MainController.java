@@ -77,6 +77,10 @@ public class MainController extends HttpServlet {
                 url="/search-post.jsp";
                 showSearchPost(request,response);
                 break;
+            case "search-post1":
+                url="/search-post.jsp";
+                showSearchPost1(request,response);
+                break;
             default:
                 url="/home.jsp";
                 ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct(recentPostSize)) ;
@@ -88,19 +92,38 @@ public class MainController extends HttpServlet {
         getServletContext().getRequestDispatcher(url).forward(request,response);
     }
 
-    private void showSearchPost(HttpServletRequest request, HttpServletResponse response) {
+    private void showSearchPost1(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session=request.getSession();
         int page=Integer.parseInt(request.getParameter("page"));
         final int numberProductPerPage=4;
         String car_name=(String)session.getAttribute("car_name");
         String location=(String)session.getAttribute("location");
         String car_type=(String)session.getAttribute("car_type");
-        if(car_name== null || location==null || car_type==null){
-            car_name="%"+request.getParameter("car_name").trim()+"%";
-            location=request.getParameter("location").trim();
-            car_type="%"+request.getParameter("car_type").trim()+"%";
-        }
 
+        ArrayList<Post> allList=new ArrayList<>(productServices.selectSearchProduct(car_name,location,car_type));
+        ArrayList<Post> productList=new ArrayList<>();
+        double listSize= (Math.ceil(allList.size()/numberProductPerPage))+1;
+
+        int startElement= (page-1)*numberProductPerPage;
+        for (int i =startElement; i<startElement+numberProductPerPage && i<allList.size();i++){
+            productList.add(allList.get(i));
+        }
+        session.setAttribute("car_name",car_name);
+        session.setAttribute("location",location);
+        session.setAttribute("car_type",car_type);
+        session.setAttribute("page",page);
+        session.setAttribute("listSize",listSize);
+        session.setAttribute("productList",productList);
+    }
+
+    private void showSearchPost(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        int page=Integer.parseInt(request.getParameter("page"));
+        final int numberProductPerPage=4;
+
+        String car_name="%"+request.getParameter("car_name").trim()+"%";
+        String location=request.getParameter("location").trim();
+        String car_type="%"+request.getParameter("car_type").trim()+"%";
 
         ArrayList<Post> allList=new ArrayList<>(productServices.selectSearchProduct(car_name,location,car_type));
         ArrayList<Post> productList=new ArrayList<>();

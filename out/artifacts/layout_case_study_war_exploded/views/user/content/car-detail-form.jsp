@@ -200,10 +200,12 @@
                     <section>
                         <h2>Search Ads</h2>
                         <!--============ Side Bar Search Form ===========================================-->
-                        <form class="sidebar-form form">
+                        <form class="sidebar-form form" method="get" action="home">
+                            <input type="hidden" name="action" value="search-post">
+                            <input type="hidden" name="page" value="1">
                             <div class="form-group">
-                                <label for="what" class="col-form-label">What?</label>
-                                <input name="keyword" type="text" class="form-control" id="what"
+                                <label for="what" class="col-form-label">Car Name?</label>
+                                <input name="car_name" type="text" class="form-control" id="what"
                                        placeholder="What are you looking for?">
                             </div>
                             <!--end form-group-->
@@ -211,19 +213,20 @@
                                 <label for="input-location" class="col-form-label">Where?</label>
                                 <input name="location" type="text" class="form-control" id="input-location"
                                        placeholder="Enter Location">
-                                <span class="geo-location input-group-addon" data-toggle="tooltip" data-placement="top"
-                                      title="Find My Position"><i class="fa fa-map-marker"></i></span>
                             </div>
                             <!--end form-group-->
                             <div class="form-group">
                                 <label for="category" class="col-form-label">Category?</label>
-                                <select name="category" id="category" data-placeholder="Select Category">
-                                    <option value="">Select Category</option>
-                                    <option value="1">Computers</option>
-                                    <option value="2">Real Estate</option>
-                                    <option value="3">Cars & Motorcycles</option>
-                                    <option value="4">Furniture</option>
-                                    <option value="5">Pets & Animals</option>
+                                <select name="car_type" id="category" data-placeholder="Select Car Type">
+                                    <option value="4 Door Sedans">4-Door Sedans</option>
+                                    <option value="2 Door Coupes">2-Door Coupes</option>
+                                    <option value="Station Wagons">Liquefied</option>
+                                    <option value="Convertibles">Petroleum</option>
+                                    <option value="Sports Cars">Sports Cars</option>
+                                    <option value="Mini Vans">Mini-Vans</option>
+                                    <option value="suvs">SUVs</option>
+                                    <option value="Pickup Trucks">Pickup Trucks</option>
+                                    <option value="Vans">Vans</option>
                                 </select>
                             </div>
                             <!--end form-group-->

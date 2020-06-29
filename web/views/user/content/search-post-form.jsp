@@ -83,7 +83,7 @@
                     <ul class="pagination">
                         <li class="page-item">
                             <a class="page-link"
-                               href="<c:url value="/home?action=search-post&page=${sessionScope.page-1}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>"
+                               href="<c:url value="/home?action=search-post1&page=${sessionScope.page-1}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>"
                                aria-label="Previous">
                                         <span aria-hidden="true">
                                             <i class="fa fa-chevron-left"></i>
@@ -94,13 +94,13 @@
                         <c:forEach var="i" begin="1" end="${sessionScope.listSize}">
                             <li class="page-item <c:if test="${sessionScope.page == i}"> active </c:if>">
                                 <a class="page-link"
-                                   href="<c:url value="/home?action=search-post&page=${i}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>">${i}</a>
+                                   href="<c:url value="/home?action=search-post1&page=${i}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>">${i}</a>
                             </li>
                         </c:forEach>
 
                         <li class="page-item">
                             <a class="page-link"
-                               href="<c:url value="/home?action=search-post&page=${sessionScope.page+1}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>"
+                               href="<c:url value="/home?action=search-post1&page=${sessionScope.page+1}&car_name=${car_name}&location=${location}&car_type=${car_type}"/>"
                                aria-label="Next">
                                         <span aria-hidden="true">
                                             <i class="fa fa-chevron-right"></i>
