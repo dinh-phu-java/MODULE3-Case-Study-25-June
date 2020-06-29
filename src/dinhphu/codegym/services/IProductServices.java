@@ -17,4 +17,5 @@ public interface IProductServices {
     public Product selectProductByCarId(int carId);
     public void updateCarStatusDelivering(int car_id,int seller_id);
     public double getTotalPrice(int order_id);
+    public void updateProductStatusToComplete(int car_id);
 }

@@ -1,7 +1,7 @@
 package dinhphu.codegym.controller;
 
-import dinhphu.codegym.services.IOrders;
-import dinhphu.codegym.services.OrderServices;
+import dinhphu.codegym.model.OrderDetail;
+import dinhphu.codegym.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @WebServlet(name = "AdminController",urlPatterns="/admin-controller")
 public class AdminController extends HttpServlet {
     private static IOrders orderServices=new OrderServices();
+    private static IProductServices productServices=new ProductServices();
+    private static IOrderDetail orderDetailServices=new OrderDetailServices();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -45,5 +48,10 @@ public class AdminController extends HttpServlet {
         String shipped_date = simpleDateFormat.format(new Date());
         orderServices.updateOrderShippedDate(shipped_date,order_id);
 
+        ArrayList<OrderDetail> orderDetails=new ArrayList<>(orderDetailServices.selectOrderDetailsByOrderId(order_id));
+
+        for(OrderDetail detail : orderDetails){
+            productServices.updateProductStatusToComplete(detail.getCar_id());
+        }
     }
 }

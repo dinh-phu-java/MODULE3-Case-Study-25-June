@@ -21,6 +21,7 @@ public class ProductServices implements IProductServices {
     private static final String selectProductByUserId = "select * from car where user_id=? and status='available'";
     private static final String updateCarStatusDelivering = "update car set status='delivering' where car_id = ? and user_id=?";
     private static final String getTotalPrice = "select sum(price_manual) from order_detail where order_id=?";
+    private static final String updateStatusToComplete = "update car set status='completed' where car_id = ?";
 
     @Override
     public double getTotalPrice(int order_id){
@@ -243,6 +244,18 @@ public class ProductServices implements IProductServices {
             throwables.printStackTrace();
         }
         return post;
+    }
+
+    @Override
+    public void updateProductStatusToComplete(int car_id){
+            Connection connection=DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(updateStatusToComplete);
+            preparedStatement.setInt(1,car_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 //    public static void main(String[] args) {
