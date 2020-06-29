@@ -59,13 +59,13 @@
             <h2>Contact</h2>
             <address>
                 <figure>
-                    124 Abia Martin Drive<br>
-                    New York, NY 10011
+                    Codegym Ha Noi<br>
+                    Ham Nghi
                 </figure>
                 <br>
-                <strong>Email:</strong> <a href="#">hello@example.com</a>
+                <strong>Email:</strong> <a href="#">ndp17hp@example.com</a>
                 <br>
-                <strong>Skype: </strong> Craigs
+                <strong>Skype: </strong> Dinh Phu
                 <br>
                 <br>
                 <a href="contact.html" class="btn btn-primary text-caps btn-framed">Contact Us</a>

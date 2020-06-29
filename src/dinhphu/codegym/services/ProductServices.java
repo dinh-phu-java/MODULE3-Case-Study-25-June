@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ProductServices implements IProductServices {
     private static final String selectAllPost = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id";
+    private static final String selectSearchPost = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id=u.user_id where (c.car_name like ? or c.car_type = ? or u.address like ?) and c.status='available'";
     private static final String selectPostByCarId = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id where c.car_id=?";
     private static final String selectRecentProduct = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id where c.status='available' order by car_id desc limit ?";
     private static final String insertProductStatement = "insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -125,6 +126,34 @@ public class ProductServices implements IProductServices {
         Connection connection = DatabaseConnection.getConnection();
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(selectAllPost);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                double number =rs.getDouble(9);
+                double carPrice =Double.parseDouble(new DecimalFormat("##.##").format(number));
+
+                String gear=rs.getString(5).toUpperCase();
+                String front_wheel=rs.getString(6).toUpperCase();
+                String fuel_type=rs.getString(7).toUpperCase();
+
+                Post post=new Post(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),gear,front_wheel,fuel_type,rs.getString(8),carPrice,rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getString(18));
+                posts.add(post);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return posts;
+
+    }
+
+    @Override
+    public List<Post> selectSearchProduct(String name,String carType,String address ){
+        ArrayList<Post> posts = new ArrayList<>();
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(selectSearchPost);
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,carType);
+            preparedStatement.setString(3,address);
             ResultSet rs=preparedStatement.executeQuery();
             while(rs.next()){
                 double number =rs.getDouble(9);

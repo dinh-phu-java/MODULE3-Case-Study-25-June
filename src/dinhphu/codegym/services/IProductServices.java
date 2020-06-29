@@ -11,6 +11,7 @@ public interface IProductServices {
     public Product selectProduct(String token);
     public int rowCount();
     public List<Post> selectAllProduct();
+    public List<Post> selectSearchProduct(String name,String address, String carType);
     public List<Post> selectRecentProduct(int size);
     public Post selectPostByCarId(int carId);
     public List<Product> selectProductByUserId(int userId);
