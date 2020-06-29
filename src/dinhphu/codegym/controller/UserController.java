@@ -71,9 +71,12 @@ public class UserController extends HttpServlet {
         for (Cart cart:cartList){
             postList.add(productServices.selectPostByCarId(cart.getCar_id()));
         }
+
         for (Post post:postList){
             orderDetailServices.createOrderDetail(order_id,post.getUser_id(),post.getCar_id(),post.getCar_price());
+            productServices.updateCarStatusDelivering(post.getCar_id(),post.getUser_id());
         }
+
         cartServices.deleteAllCart(buyer.getId());
         session.removeAttribute("postList");
         ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
