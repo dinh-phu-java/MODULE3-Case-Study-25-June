@@ -24,6 +24,7 @@ public class UserController extends HttpServlet {
     public static  ICart cartServices=new CartServices();
     public static IOrders orderServices=new OrderServices();
     public static IOrderDetail orderDetailServices=new OrderDetailServices();
+    public static final int recentPostSize=8;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
         String url="/home.jsp";
@@ -38,7 +39,7 @@ public class UserController extends HttpServlet {
                 registerUser(request,response);
                 break;
             case "login":
-                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct(recentPostSize)) ;
                 request.setAttribute("recentProducts",recentProducts);
                 loginUser(request,response);
                 break;

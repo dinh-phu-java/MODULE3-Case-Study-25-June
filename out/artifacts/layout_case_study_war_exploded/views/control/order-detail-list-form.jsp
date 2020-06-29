@@ -21,8 +21,8 @@
                                     <c:forEach items="${infoList}" var="info">
                                         <tr>
                                             <td>
-                                                <a href="/user-control?action=show-order-list" >
-                                                    ${info[0]}
+                                                <a href="/user-control?action=show-order-list">
+                                                        ${info[0]}
                                                 </a>
                                             </td>
                                             <td>
@@ -38,14 +38,6 @@
 
                     </section>
 
-                    <%--                    <section class="clearfix">--%>
-                    <%--                        <button type="submit" class="btn btn-outline-danger float-left">Save Changes</button>--%>
-                    <%--                    </section>--%>
-
-                    <%--                    <p style="color:green;">${message}</p>--%>
-                    <%--                    <c:if test="${message !=null}">--%>
-                    <%--                        <c:remove  var="message"/>--%>
-                    <%--                    </c:if>--%>
                 </div>
                 <!--end col-md-8-->
 

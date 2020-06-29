@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductServices implements IProductServices {
     private static final String selectAllPost = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id";
     private static final String selectPostByCarId = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id where c.car_id=?";
-    private static final String selectRecentProduct = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id where c.status='available' order by car_id desc limit 8";
+    private static final String selectRecentProduct = "select c.car_id,c.user_id,c.image_id,c.engine_type,c.gear, c.front_wheel,c.fuel_type,c.valves,c.car_price,c.description,c.post_date,c.date_of_manufacture,c.vendor,c.car_type,c.car_name,u.username,u.full_name,u.address from car as c inner join users as u on c.user_id = u.user_id where c.status='available' order by car_id desc limit ?";
     private static final String insertProductStatement = "insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String updateProduct = "update car set image_id=?, engine_type = ?,gear=? , front_wheel=?, fuel_type=?,valves=?, car_price=?, description=?, vendor=?, car_type=?, car_name=? where car_id=?";
     private static final String selectProductByUserId = "select * from car where user_id=? and status='available'";
@@ -200,11 +200,12 @@ public class ProductServices implements IProductServices {
     }
 
     @Override
-    public List<Post> selectRecentProduct(){
+    public List<Post> selectRecentProduct(int size){
         ArrayList<Post> posts = new ArrayList<>();
         Connection connection = DatabaseConnection.getConnection();
         try {
             PreparedStatement preparedStatement=connection.prepareStatement(selectRecentProduct);
+            preparedStatement.setInt(1,size);
             ResultSet rs=preparedStatement.executeQuery();
             while(rs.next()){
                 double number =rs.getDouble(9);

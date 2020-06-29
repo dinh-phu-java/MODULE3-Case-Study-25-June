@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class MainController extends HttpServlet {
     private static IUserServices userServices= new UserServices();
     private static IProductServices productServices=new ProductServices();
+    private static final int recentPostSize=8;
+    private static final int featurePostSize=3;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         String username=(String)session.getAttribute("username");
@@ -41,7 +43,7 @@ public class MainController extends HttpServlet {
                 break;
             default:
                 url="/home.jsp";
-                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct(recentPostSize)) ;
                 request.setAttribute("recentProducts",recentProducts);
                 break;
         }
@@ -73,8 +75,10 @@ public class MainController extends HttpServlet {
                 break;
             default:
                 url="/home.jsp";
-                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct()) ;
+                ArrayList<Post> recentProducts=new ArrayList<>(productServices.selectRecentProduct(recentPostSize)) ;
+                ArrayList<Post> featureProducts=new ArrayList<>(productServices.selectRecentProduct(featurePostSize)) ;
                 request.setAttribute("recentProducts",recentProducts);
+                request.setAttribute("featureProducts",featureProducts);
                 break;
         }
         getServletContext().getRequestDispatcher(url).forward(request,response);
