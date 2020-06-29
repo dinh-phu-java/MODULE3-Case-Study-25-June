@@ -431,9 +431,28 @@ public class UserController extends HttpServlet {
                     url="/sold-items-list.jsp";
                     showSoldItems(request,response);
                     break;
+                case "order-detail":
+                    url="/order-detail-list.jsp";
+                    showOrderDetail(request,response);
+                    break;
             }
 
             getServletContext().getRequestDispatcher(url).forward(request,response);
+
+    }
+
+    private void showOrderDetail(HttpServletRequest request, HttpServletResponse response) {
+        int order_id =Integer.parseInt(request.getParameter("order-id"));
+        ArrayList<OrderDetail> orderDetails=new ArrayList<>(orderDetailServices.selectOrderDetailsByOrderId(order_id));
+
+        ArrayList<String[]> infoList=new ArrayList<>();
+        for(OrderDetail detail:orderDetails){
+            User seller=(User)userServices.selectUserByUserId(detail.getSeller_id());
+            Product car=(Product)productServices.selectProductByCarId(detail.getCar_id());
+            String[] info=new String[]{String.valueOf(detail.getOrder_id()),seller.getFullName(),car.getCar_name(), String.valueOf(car.getCar_price()),String.valueOf(detail.getSeller_id())};
+            infoList.add(info);
+        }
+        request.setAttribute("infoList",infoList);
 
     }
 
@@ -444,7 +463,7 @@ public class UserController extends HttpServlet {
         ArrayList<String[]> infoList=new ArrayList<>();
         for(Product item:soldItems){
             User user= userServices.selectUserByUserId(item.getUser_id());
-            String[] info=new String[]{String.valueOf(item.getCar_id()),user.getFullName(),item.getCar_name(), String.valueOf(item.getCar_price()),item.getVendor(),item.getStatus()};
+            String[] info=new String[]{String.valueOf(item.getCar_id()),user.getFullName(),item.getCar_name(), String.valueOf(item.getCar_price()),item.getVendor(),item.getStatus(), String.valueOf(item.getUser_id())};
             infoList.add(info);
         }
         request.setAttribute("infoList",infoList);

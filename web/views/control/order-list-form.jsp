@@ -27,7 +27,7 @@
                                             <td>${info[2]}</td>
                                             <td>${info[3]}</td>
                                             <td>${info[4]}</td>
-                                            <td><a href="#">Detail</a></td>
+                                            <td><a href="/user-control?action=order-detail&order-id=${info[0]}">Detail</a></td>
                                         </tr>
                                     </c:forEach>
 <%--                                    <c:forEach items="${orderList}" var="order">--%>
