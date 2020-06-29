@@ -32,6 +32,7 @@ public class UserController extends HttpServlet {
             action="view";
             getServletContext().getRequestDispatcher(url).forward(request,response);
         }
+
         switch(action){
             case "register":
                 registerUser(request,response);
@@ -391,15 +392,32 @@ public class UserController extends HttpServlet {
         User buyer=(User)session.getAttribute("loginUser");
 
         ArrayList<Orders> ordersList= new ArrayList<>(orderServices.selectOrdersByBuyerId(buyer.getId()));
-
+        int size=ordersList.size();
+        ArrayList<Double> totalPriceList=new ArrayList<>();
+        ArrayList<String> statusList=new ArrayList<>();
+        ArrayList<String[]> infoList=new ArrayList<>();
+        String status="";
+        double price=0;
         for (Orders order : ordersList){
+//            totalPriceList.add(productServices.getTotalPrice(order.getOrder_id()));
+            price=productServices.getTotalPrice(order.getOrder_id());
             if (order.getShipped_date() == null){
-                order.setShipped_date("Delivering");
+//                order.setShipped_date("Delivering");
+//                statusList.add("Delivering");
+                    status="Delivering";
             }else{
-                order.setShipped_date("Completed");
+//                order.setShipped_date("Completed");
+//                statusList.add("Completed");
+                status="Completed";
             }
+            String[] list=new String[]{String.valueOf(order.getOrder_id()),order.getOrder_date(),order.getShipped_date(),status, String.valueOf(price)};
+            infoList.add(list);
         }
 
+        request.setAttribute("size",size);
+        request.setAttribute("infoList",infoList);
+        request.setAttribute("statusList",statusList);
+        request.setAttribute("totalPriceList",totalPriceList);
         session.setAttribute("orderList",ordersList);
         String url="/order-list.jsp";
         try {

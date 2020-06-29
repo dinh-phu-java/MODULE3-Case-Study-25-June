@@ -20,7 +20,24 @@ public class ProductServices implements IProductServices {
     private static final String updateProduct = "update car set image_id=?, engine_type = ?,gear=? , front_wheel=?, fuel_type=?,valves=?, car_price=?, description=?, vendor=?, car_type=?, car_name=? where car_id=?";
     private static final String selectProductByUserId = "select * from car where user_id=? and status='available'";
     private static final String updateCarStatusDelivering = "update car set status='delivering' where car_id = ? and user_id=?";
+    private static final String getTotalPrice = "select sum(price_manual) from order_detail where order_id=?";
 
+    @Override
+    public double getTotalPrice(int order_id){
+        Connection connection=DatabaseConnection.getConnection();
+        double totalPrice=0;
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(getTotalPrice);
+            preparedStatement.setInt(1,order_id);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                totalPrice=rs.getDouble(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return totalPrice;
+    }
     @Override
     public void updateCarStatusDelivering(int car_id,int seller_id){
         Connection connection =DatabaseConnection.getConnection();
@@ -229,7 +246,9 @@ public class ProductServices implements IProductServices {
     }
 
 //    public static void main(String[] args) {
+//
 //        ProductServices productServices=new ProductServices();
-//        productServices.updateCarStatusDelivering(37,6);
+//        System.out.println(productServices.getTotalPrice(19)) ;
+//
 //    }
 }

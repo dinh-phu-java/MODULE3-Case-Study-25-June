@@ -16,18 +16,29 @@
                                         <th>Order ID</th>
                                         <th>Order Date</th>
                                         <th>Shipped Date</th>
+                                        <th>Status</th>
                                         <th>Total Price</th>
                                         <th>Order detail</th>
                                     </tr>
-                                    <c:forEach items="${orderList}" var="order">
+                                    <c:forEach items="${infoList}" var="info" >
                                         <tr>
-                                            <td>${order.order_id}</td>
-                                            <td>${order.order_date}</td>
-                                            <td>${order.shipped_date}</td>
-                                            <td>Total Price: $?</td>
+                                            <td>${info[0]}</td>
+                                            <td>${info[1]}</td>
+                                            <td>${info[2]}</td>
+                                            <td>${info[3]}</td>
+                                            <td>${info[4]}</td>
                                             <td><a href="#">Detail</a></td>
                                         </tr>
                                     </c:forEach>
+<%--                                    <c:forEach items="${orderList}" var="order">--%>
+<%--                                        <tr>--%>
+<%--                                            <td>${order.order_id}</td>--%>
+<%--                                            <td>${order.order_date}</td>--%>
+<%--                                            <td>${order.shipped_date}</td>--%>
+<%--                                            <td>Total Price: $?</td>--%>
+<%--                                            <td><a href="#">Detail</a></td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
                                 </table>
 
 
