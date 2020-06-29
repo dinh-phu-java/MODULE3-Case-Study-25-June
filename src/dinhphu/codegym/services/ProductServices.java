@@ -19,6 +19,20 @@ public class ProductServices implements IProductServices {
     private static final String insertProductStatement = "insert into car(engine_type,gear,front_wheel,fuel_type,valves,car_price,description,post_date,date_of_manufacture,vendor,car_type,car_name,user_id,image_id) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String updateProduct = "update car set image_id=?, engine_type = ?,gear=? , front_wheel=?, fuel_type=?,valves=?, car_price=?, description=?, vendor=?, car_type=?, car_name=? where car_id=?";
     private static final String selectProductByUserId = "select * from car where user_id=? and status='available'";
+    private static final String updateCarStatusDelivering = "update car set status='delivering' where car_id = ? and user_id=?";
+
+    @Override
+    public void updateCarStatusDelivering(int car_id,int seller_id){
+        Connection connection =DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(updateCarStatusDelivering);
+            preparedStatement.setInt(1,car_id);
+            preparedStatement.setInt(2,seller_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @Override
     public boolean insertProduct(Product product, int userId) {
@@ -212,7 +226,10 @@ public class ProductServices implements IProductServices {
             throwables.printStackTrace();
         }
         return post;
-
     }
 
+//    public static void main(String[] args) {
+//        ProductServices productServices=new ProductServices();
+//        productServices.updateCarStatusDelivering(37,6);
+//    }
 }
