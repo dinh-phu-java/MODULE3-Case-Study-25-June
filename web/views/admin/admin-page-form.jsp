@@ -5,7 +5,7 @@
             <%--            <input type="hidden" name="action" value="change-password">--%>
             <div class="row">
                 <div class="col-md-8">
-                    <h2>Order List: Hello admin ${loginUser.userName}</h2>
+                    <h2>${loginUser.userName} Order List: </h2>
                     <section>
                         <div class="row">
                             <div class="col-md-12">
