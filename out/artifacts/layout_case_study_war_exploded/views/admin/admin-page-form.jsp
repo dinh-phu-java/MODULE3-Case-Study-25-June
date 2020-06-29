@@ -27,7 +27,7 @@
                                             <td>${info[3]}</td>
                                             <td>${info[4]}</td>
                                             <td><a href="#">Detail</a></td>
-                                            <td><a href="#">Confirm</a></td>
+                                            <td><a href="/admin-controller?action=confirm-order&order-id=${info[0]}">Confirm</a></td>
                                         </tr>
                                     </c:forEach>
                                 </table>

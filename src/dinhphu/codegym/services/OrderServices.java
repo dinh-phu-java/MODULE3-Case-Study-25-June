@@ -12,6 +12,7 @@ public class OrderServices implements IOrders{
     public static final String selectLastRow="select max(order_id) from orders";
     public static final String selectOrderByBuyerId="select * from orders where buyer_id=? order by order_id desc";
     public static final String selectDeliveringOrder="select * from orders where shipped_date is null order by order_id desc";
+    public static final String updateOrderShippedDate="update orders set shipped_date=? where order_id=?";
 
     @Override
     public void createOrder(int buyer_id , String order_date) {
@@ -73,14 +74,20 @@ public class OrderServices implements IOrders{
         }
         return orderList;
     }
+    @Override
+    public void updateOrderShippedDate(String shippedDate,int order_id){
+        Connection connection=DatabaseConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement=connection.prepareStatement(updateOrderShippedDate);
+            preparedStatement.setString(1,shippedDate);
+            preparedStatement.setInt(2,order_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 //    public static void main(String[] args) {
 //        OrderServices orderServices=new OrderServices();
-//        orderServices.createOrder(1,"2020-06-24");
-//        orderServices.createOrder(1,"2020-05-20");
-//        orderServices.createOrder(1,"2020-03-20");
-//        ArrayList<Orders> orders=new ArrayList<>(orderServices.selectOrdersByBuyerId(1)) ;
-//        orders.forEach(k->{
-//
-//        });
+//        orderServices.updateOrderShippedDate("2020-06-29",81);
 //    }
 }

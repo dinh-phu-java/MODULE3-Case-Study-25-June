@@ -9,4 +9,6 @@ public interface IOrders {
     public int getLastRecord();
     public List<Orders> selectOrdersByBuyerId(int buyer_id);
     public List<Orders> selectDeliveringOrders();
+    public void updateOrderShippedDate(String shippedDate,int order_id);
+
 }
