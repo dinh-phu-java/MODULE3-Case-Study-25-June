@@ -16,7 +16,6 @@
                                         <th>Order ID</th>
                                         <th>Order Date</th>
                                         <th>Shipped Date</th>
-                                        <th>Status</th>
                                         <th>Total Price</th>
                                         <th>Order detail</th>
                                     </tr>
