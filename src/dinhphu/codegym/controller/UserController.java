@@ -426,10 +426,28 @@ public class UserController extends HttpServlet {
                     User loginUser=userServices.selectUser("admin");
                     session.setAttribute("loginUser",loginUser);
                     orderAdminList(request,response);
+                    break;
+                case "sold-item":
+                    url="/sold-items-list.jsp";
+                    showSoldItems(request,response);
+                    break;
             }
-        System.out.println("url is: "+url);
+
             getServletContext().getRequestDispatcher(url).forward(request,response);
 
+    }
+
+    private void showSoldItems(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session=request.getSession();
+        User loginUser=(User)session.getAttribute("loginUser");
+        ArrayList<Product> soldItems=new ArrayList<>(productServices.selectSoldProduct(loginUser.getId()));
+        ArrayList<String[]> infoList=new ArrayList<>();
+        for(Product item:soldItems){
+            User user= userServices.selectUserByUserId(item.getUser_id());
+            String[] info=new String[]{String.valueOf(item.getCar_id()),user.getFullName(),item.getCar_name(), String.valueOf(item.getCar_price()),item.getVendor(),item.getStatus()};
+            infoList.add(info);
+        }
+        request.setAttribute("infoList",infoList);
     }
 
     private void showOrderList(HttpServletRequest request, HttpServletResponse response) {

@@ -22,6 +22,7 @@ public class ProductServices implements IProductServices {
     private static final String updateCarStatusDelivering = "update car set status='delivering' where car_id = ? and user_id=?";
     private static final String getTotalPrice = "select sum(price_manual) from order_detail where order_id=?";
     private static final String updateStatusToComplete = "update car set status='completed' where car_id = ?";
+    private static final String selectSoldProduct = "select * from car where user_id=? and status <> 'available' order by car_id desc";
 
     @Override
     public double getTotalPrice(int order_id){
@@ -257,7 +258,35 @@ public class ProductServices implements IProductServices {
             throwables.printStackTrace();
         }
     }
+    @Override
+    public List<Product> selectSoldProduct(int userId){
 
+        ArrayList<Product> products = new ArrayList<>();
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            PreparedStatement sqlStatement = connection.prepareStatement(selectSoldProduct);
+            sqlStatement.setInt(1, userId);
+            ResultSet rs = sqlStatement.executeQuery();
+            while (rs.next()) {
+
+                double number =rs.getDouble(9);
+                double carPrice =Double.parseDouble(new DecimalFormat("##.##").format(number));
+
+                String gear=rs.getString(5).toUpperCase();
+                String front_wheel=rs.getString(6).toUpperCase();
+                String fuel_type=rs.getString(7).toUpperCase();
+
+                Product getProduct=new Product(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),gear,front_wheel,fuel_type,rs.getString(8),carPrice,rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),rs.getString(16));
+                products.add(getProduct);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return products;
+
+    }
 //    public static void main(String[] args) {
 //
 //        ProductServices productServices=new ProductServices();

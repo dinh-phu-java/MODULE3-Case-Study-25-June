@@ -82,6 +82,14 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
+                    <a href="/user-control?action=sold-item" class="nav-link">
+                        <i class="fa fa-sellcast"></i>
+                        <p>
+                            Sold Items
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="<c:url value="/user-control?action=user-logout"/>" class="nav-link">
                         <i class="fa fa-anchor"></i>
                         <p>

@@ -14,6 +14,7 @@ public interface IProductServices {
     public List<Post> selectRecentProduct();
     public Post selectPostByCarId(int carId);
     public List<Product> selectProductByUserId(int userId);
+    public List<Product> selectSoldProduct(int userId);
     public Product selectProductByCarId(int carId);
     public void updateCarStatusDelivering(int car_id,int seller_id);
     public double getTotalPrice(int order_id);

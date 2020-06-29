@@ -5,29 +5,27 @@
             <%--            <input type="hidden" name="action" value="change-password">--%>
             <div class="row">
                 <div class="col-md-8">
-                    <h2>${loginUser.userName} Order List: </h2>
+                    <h2>${loginUser.userName} Sold Items: </h2>
                     <section>
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-striped table-hover">
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Order Date</th>
-                                        <th>Shipped Date</th>
+                                        <th>Car Id</th>
+                                        <th>Seller</th>
+                                        <th>Car Name</th>
+                                        <th>Car Price</th>
+                                        <th>Vendor</th>
                                         <th>Status</th>
-                                        <th>Total Price</th>
-                                        <th>Order detail</th>
-                                        <th>Confirm Order</th>
                                     </tr>
-                                    <c:forEach items="${infoList}" var="info">
+                                    <c:forEach items="${infoList}" var="car">
                                         <tr>
-                                            <td>${info[0]}</td>
-                                            <td>${info[1]}</td>
-                                            <td>${info[2]}</td>
-                                            <td>${info[3]}</td>
-                                            <td>${info[4]}</td>
-                                            <td><a href="#">Detail</a></td>
-                                            <td><a href="/admin-controller?action=confirm-order&order-id=${info[0]}">Confirm</a></td>
+                                            <td>${car[0]}</td>
+                                            <td>${car[1]}</td>
+                                            <td>${car[2]}</td>
+                                            <td>${car[3]}</td>
+                                            <td>${car[4]}</td>
+                                            <td>${car[5]}</td>
                                         </tr>
                                     </c:forEach>
                                 </table>

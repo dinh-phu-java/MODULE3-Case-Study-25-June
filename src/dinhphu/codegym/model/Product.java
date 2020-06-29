@@ -16,6 +16,33 @@ public class Product {
     String vendor;
     String car_type;
     String car_name;
+    String status;
+    public Product(int car_id, int user_id, String image_id, String engine_type, String gear, String front_wheel, String fuel_type, String valves, double car_price, String description, String post_date, String date_of_manufacture, String vendor, String car_type, String car_name,String status) {
+        this.car_id = car_id;
+        this.user_id = user_id;
+        this.image_id = image_id;
+        this.engine_type = engine_type;
+        this.gear = gear;
+        this.front_wheel = front_wheel;
+        this.fuel_type = fuel_type;
+        this.valves = valves;
+        this.car_price = car_price;
+        this.description = description;
+        this.post_date = post_date;
+        this.date_of_manufacture = date_of_manufacture;
+        this.vendor = vendor;
+        this.car_type = car_type;
+        this.car_name=car_name;
+        this.status=status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Product(int car_id, int user_id, String image_id, String engine_type, String gear, String front_wheel, String fuel_type, String valves, double car_price, String description, String post_date, String date_of_manufacture, String vendor, String car_type, String car_name) {
         this.car_id = car_id;
